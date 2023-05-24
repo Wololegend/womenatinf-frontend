@@ -115,7 +115,7 @@
           </div>
 
           <div class="field mb-5 mx-3">
-            <button :disabled="success" class="button is-medium">
+            <button class="button is-medium">
               Enviar
             </button>
           </div>
@@ -133,17 +133,30 @@ export default {
   components: {
     Card
   },
-  methods: {
-    clickMe() {
-      this.$buefy.notification.open('Clicked!!')
+  data() {
+    return {
+      correctEmailFormat: true,
+      correctEmailMessage: '',
+      correctSuggestionFormat: true,
+      correctSuggestionMessage: '',
+      correctSubjectFormat: true,
+      correctSubjectMessage: '',
+      name: '',
+      email: '',
+      suggestion: '',
+      
+
     }
+  },
+  methods: {
+    sendFormInfo() {}
   }
 }
 </script>
 
 <style scoped>
 .quote {
-  color: black;
+  color: #121212;
   background-color: #f0eff4;
 }
 
