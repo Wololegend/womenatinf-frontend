@@ -8,8 +8,10 @@
                 responsive
             ></b-image>
         </div>
+
         <div class="block column is-11 mx-5">
-            <h3 class="title mt-3 mb-0"> {{ title }} </h3>
+            <h3 class="title mt-3"> {{ title }} </h3>
+
             <p class="content"> {{ textPreview }} </p>
         </div>
     </div>
@@ -31,9 +33,6 @@
 
         this.textPreview += '...'
     },
-    methods: {
-  
-    }
   }
   </script>
   

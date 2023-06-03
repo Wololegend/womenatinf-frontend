@@ -1,24 +1,42 @@
 <template>
-  <div class="tile is-ancestor columns is-multiline my-5 mx-5">
-    <div class="tile is-parent is-12">
-      <article class="tile is-child notification titleTile is-full has-text-centered">
-        <h1 class="title is-inline-block my-0" style="  font-size: 35px !important;"> Nuestros logros más recientes </h1>
-      </article>
-    </div>
 
-    <div class="tile is-parent column is-8 customTile mx-3">
-      <div class="columns is-multiline is-vcentered ml-3 my-2">
+  <!-- There are four <sections>. Each one of them is a tile that contains: the title, the "popular" section, the "local", and the rest of the posts. -->
+
+  <div class="tile is-ancestor columns is-multiline my-5 mx-5">
+
+    <!-- TITLE -->
+    <section class="tile is-parent is-12">
+      <article class="tile is-child notification titleTile is-full has-text-centered">
+        <h1 class="title is-inline-block" style=""> Nuestros logros más recientes </h1>
+      </article>
+    </section>
+
+    <!-- POPULAR -->
+    <section class="tile is-parent column is-8 customTile mx-3">
+      <div class="columns is-multiline is-vcentered my-2 container">
+        <h2 class="title ml-3"> Destacados </h2>
+
+        <hr class="betweenTitle">
+
         <short-post
-          class="column is-12"
-          v-for="(post, index) in posts"
-          :key="index"
-          v-if="boolean && index < 2"
-          :img="'http://localhost:1337' + post.attributes.media.data[0].attributes.url"
-          :title="post.attributes.titulo"
-          :text="post.attributes.cuerpo"
+          class="ml-3"
+          v-if="boolean"
+          :img="'http://localhost:1337' + posts[0].attributes.media.data[0].attributes.url"
+          :title="posts[0].attributes.titulo"
+          :text="posts[0].attributes.cuerpo"
+        ></short-post>
+
+        <hr class="betweenPosts is-centered">
+
+        <short-post
+          class="ml-3"
+          v-if="boolean"
+          :img="'http://localhost:1337' + posts[1].attributes.media.data[0].attributes.url"
+          :title="posts[1].attributes.titulo"
+          :text="posts[1].attributes.cuerpo"
         ></short-post>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -70,7 +88,8 @@ export default {
 
 <style scoped>
 .customTile {
-  background-color: #32576e
+  background-color: #f0eff4;
+  color: #121212
 }
 
 .titleTile {
@@ -78,4 +97,21 @@ export default {
   background-color: #fff;
   border: 3px dashed #5a869b;
 }
+
+hr.betweenPosts {
+    width: 96%;
+    border-color: #32576e;
+    background-color: #32576e;
+    height: 1px;
+    margin: 1rem auto 2rem auto
+}
+
+hr.betweenTitle {
+    width: 96%;
+    border-color: #32576e;
+    background-color: #32576e;
+    height: 1px;
+    margin: 0 auto 2rem auto
+}
+
 </style>
