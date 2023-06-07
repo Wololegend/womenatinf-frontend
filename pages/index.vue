@@ -17,10 +17,10 @@
 
             <hr class="betweenTitleMain">
 
-
+            <nuxt-link class="nuxtLinkDecoration" :to="`/${popular[0].attributes.titulo}`">
               <short-post class="ml-3 hoverMain" :img="'http://localhost:1337' + popular[0].attributes.media.data[0].attributes.url"
               :title="popular[0].attributes.titulo" :text="popular[0].attributes.cuerpo"></short-post>
-
+            </nuxt-link>
 
             <hr class="betweenPostsMain is-centered" v-if="popular.length > 1">
 
