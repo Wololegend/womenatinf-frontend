@@ -24,9 +24,11 @@
 
             <hr class="betweenPostsMain is-centered" v-if="popular.length > 1">
 
-            <short-post class="ml-3 mb-1 hoverMain" v-if="popular.length > 1"
-              :img="'http://localhost:1337' + popular[1].attributes.media.data[0].attributes.url"
-              :title="popular[1].attributes.titulo" :text="popular[1].attributes.cuerpo"></short-post>
+            <nuxt-link class="nuxtLinkDecoration" :to="`/${popular[1].attributes.titulo}`">
+              <short-post class="ml-3 mb-1 hoverMain" v-if="popular.length > 1"
+                :img="'http://localhost:1337' + popular[1].attributes.media.data[0].attributes.url"
+                :title="popular[1].attributes.titulo" :text="popular[1].attributes.cuerpo"></short-post>
+            </nuxt-link>
           </div>
         </article>
       </div>
@@ -37,14 +39,19 @@
 
             <hr class="betweenTitleMain">
 
-            <short-post class="ml-3 hoverMain" :img="'http://localhost:1337' + local[0].attributes.media.data[0].attributes.url"
-              :title="local[0].attributes.titulo" :text="local[0].attributes.cuerpo"></short-post>
+            <nuxt-link class="nuxtLinkDecoration" :to="`/${local[0].attributes.titulo}`">
+              <short-post class="ml-3 hoverMain" :img="'http://localhost:1337' + local[0].attributes.media.data[0].attributes.url"
+                :title="local[0].attributes.titulo" :text="local[0].attributes.cuerpo"></short-post>
+            </nuxt-link>
 
             <hr class="betweenPostsMain is-centered" v-if="local.length > 1">
 
-            <short-post class="ml-3 mb-1 hoverMain" v-if="local.length > 1"
-              :img="'http://localhost:1337' + local[1].attributes.media.data[0].attributes.url"
-              :title="local[1].attributes.titulo" :text="local[1].attributes.cuerpo"></short-post>
+            <nuxt-link class="nuxtLinkDecoration" :to="`/${local[1].attributes.titulo}`">
+              <short-post class="ml-3 mb-1 hoverMain" v-if="local.length > 1"
+                :img="'http://localhost:1337' + local[1].attributes.media.data[0].attributes.url"
+                :title="local[1].attributes.titulo" :text="local[1].attributes.cuerpo"></short-post>
+            </nuxt-link>
+            
           </div>
         </article>
       </div>
@@ -58,8 +65,10 @@
             <hr class="betweenTitleSide">
 
             <template v-for="(post, index) in this.rest">
-              <short-post class="hoverSide ml-1" :img="'http://localhost:1337' + post.attributes.media.data[0].attributes.url"
-              :title="post.attributes.titulo" :text="post.attributes.cuerpo" :small="true"></short-post>
+              <nuxt-link class="nuxtLinkDecoration" :to="`/${post.attributes.titulo}`">
+                <short-post class="hoverSide ml-1" :img="'http://localhost:1337' + post.attributes.media.data[0].attributes.url"
+                  :title="post.attributes.titulo" :text="post.attributes.cuerpo" :small="true"></short-post>
+              </nuxt-link>
 
               <hr class="betweenPostsSide is-centered" v-if="index < 4">
             </template>
