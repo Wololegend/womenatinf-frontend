@@ -2,18 +2,18 @@
 
   <!-- There are three <sections>. Each one of them is a tile that contains: the title, the explanation and the form. -->
 
-  <div class="tile is-ancestor columns is-multiline is-centered mt-5">
+  <div class="columns is-multiline is-centered mt-5">
     
     <!-- TITLE -->
-    <section class="tile is-parent is-12">
+    <section class="column is-12 titleTileBorder">
       <article class="tile is-child notification titleTile is-full has-text-centered">
         <h1 class="title is-inline-block my-0" style="  font-size: 35px !important;"> Te escuchamos </h1>
       </article>
     </section>
 
     <!-- EXPLANATION -->
-    <div class="tile is-parent is-full">
-      <section class="tile is-child notification bgInfo info">
+
+      <section class="column is-half notification bgInfo info mt-5">
         <div class="mt-5 mx-0 columns is-multiline">
           <div class="column is-10">
             <p
@@ -27,7 +27,7 @@
           </div>
           <!-- <font-awesome-icon class="column is-2 fa-4x" :icon="['fas', 'comment']" :title="$t('Suggestions')"/> -->
         </div>
-        <div class="content mx-3">
+        <div class="content mx-3 mb-5">
           <br>
 
           <p class="block">
@@ -61,7 +61,7 @@
       </section>
 
       <!-- FORM -->
-      <section class="tile is-child notification form bgForm">
+      <section class="column is-half notification form bgForm mt-5">
         <p
           class="title mt-5 mx-3"
           style="font-size: 25px"
@@ -123,7 +123,7 @@
               <textarea
                 v-model="description"
                 class="textarea"
-                rows="5"
+                rows="4"
                 type="text"
                 placeholder="El wifi es una tecnología que permite la interconexión inalámbrica de dispositivos electrónicos que..."
               ></textarea>
@@ -191,14 +191,13 @@
               </div>
             </div> -->
 
-          <div class="field mb-5 mx-3">
-            <button class="button is-medium">
+          <div class="field mx-3">
+            <button class="button is-medium mt-4">
               Enviar
             </button>
           </div>
         </form>
       </section>
-    </div>
   </div>
 </template>
 
@@ -291,10 +290,12 @@ button {
 
 .bgInfo {
   background-color: #32576e;
+  height: auto
 }
 
 .bgForm {
   background-color: #f0eff4;
+  height: auto
 }
 
 .info {
@@ -304,7 +305,12 @@ button {
 .titleTile {
   color: #5a869b;
   background-color: #fff;
+
+}
+
+.titleTileBorder {
   border: 3px dashed #5a869b;
+  border-radius: 5px;
 }
 </style>
   
