@@ -1,17 +1,18 @@
 <template >
     <div class="block columns is-vcentered">
         <div :class="imgClass">
-            <!-- <b-image
-                style="height:10rem"
-                :src="img"
-                :alt="'Imagen del post' + title"
-                :ratio="ratioImg"
-                responsive
-            ></b-image> -->
+            <!-- 'http://localhost:1337' + popular[0].attributes.media.data[0].attributes.url -->
 
             <img
-              :src="img"
-              :alt="'Imagen del post' + title"
+              v-if="img !== null"
+              :src="'http://localhost:1337' + this.img[0].attributes.url"
+              :alt="altImg"
+            >
+
+            <img
+              v-else
+              src="../assets/women@infLogoPequeño.png"
+              :alt="altImg"
             >
         </div>
 
@@ -41,10 +42,13 @@
         titleClass: 'title mt-3',
         contentClass: 'content',
         colorTitle: 'color: #121212',
-        widthText: 'width: 70%'
+        widthText: 'width: 70%',
+        altImg: ''
       }
     },
     async created() {
+      this.altImg = 'Imagen de "' + this.title + '"'
+
       if (this.small) {
         this.imgClass = 'column is-half ml-4 mr-2'
         this.txtClass = 'block column is-half'
@@ -61,6 +65,8 @@
 
         this.textPreview += '...'
       }
+
+      console.log(this.img)
     },
   }
   </script>

@@ -18,7 +18,7 @@
             <hr class="betweenTitleMain">
 
             <nuxt-link class="nuxtLinkDecoration" :to="`/${popular[0].attributes.titulo}+${popular[0].id}`">
-              <short-post class="ml-3 hoverMain" :img="'http://localhost:1337' + popular[0].attributes.media.data[0].attributes.url"
+              <short-post class="ml-3 hoverMain" :img="popular[0].attributes.media.data"
               :title="popular[0].attributes.titulo" :text="popular[0].attributes.cuerpo"></short-post>
             </nuxt-link>
 
@@ -26,7 +26,7 @@
 
             <nuxt-link class="nuxtLinkDecoration" :to="`/${popular[1].attributes.titulo}+${popular[1].id}`">
               <short-post class="ml-3 mb-1 hoverMain" v-if="popular.length > 1"
-                :img="'http://localhost:1337' + popular[1].attributes.media.data[0].attributes.url"
+                :img="popular[1].attributes.media.data"
                 :title="popular[1].attributes.titulo" :text="popular[1].attributes.cuerpo"></short-post>
             </nuxt-link>
           </div>
@@ -40,7 +40,7 @@
             <hr class="betweenTitleMain">
 
             <nuxt-link class="nuxtLinkDecoration" :to="`/${local[0].attributes.titulo}+${local[0].id}`">
-              <short-post class="ml-3 hoverMain" :img="'http://localhost:1337' + local[0].attributes.media.data[0].attributes.url"
+              <short-post class="ml-3 hoverMain" :img="local[0].attributes.media.data"
                 :title="local[0].attributes.titulo" :text="local[0].attributes.cuerpo"></short-post>
             </nuxt-link>
 
@@ -48,7 +48,7 @@
 
             <nuxt-link class="nuxtLinkDecoration" :to="`/${local[1].attributes.titulo}+${local[1].id}`">
               <short-post class="ml-3 mb-1 hoverMain" v-if="local.length > 1"
-                :img="'http://localhost:1337' + local[1].attributes.media.data[0].attributes.url"
+                :img="local[1].attributes.media.data"
                 :title="local[1].attributes.titulo" :text="local[1].attributes.cuerpo"></short-post>
             </nuxt-link>
             
@@ -66,7 +66,7 @@
 
             <template v-for="(post, index) in this.rest">
               <nuxt-link class="nuxtLinkDecoration" :to="`/${post.attributes.titulo}+${post.id}`">
-                <short-post class="hoverSide ml-1" :img="'http://localhost:1337' + post.attributes.media.data[0].attributes.url"
+                <short-post class="hoverSide ml-1" :img="post.attributes.media.data"
                   :title="post.attributes.titulo" :text="post.attributes.cuerpo" :small="true"></short-post>
               </nuxt-link>
 
@@ -301,7 +301,7 @@ export default {
 }
 
 .hoverMain:hover {
-  background-color: #d1d1d3;
+  background-color: #d4e0e7;
 }
 
 .hoverSide:hover {
