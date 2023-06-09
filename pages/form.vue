@@ -294,7 +294,7 @@ button {
 }
 
 .bgForm {
-  background-color: #f0eff4;
+  background-color: #bdd0db;
   height: auto
 }
 
@@ -312,5 +312,12 @@ button {
   border: 3px dashed #5a869b;
   border-radius: 5px;
 }
+
+input[type="text"], textarea {
+
+background-color : #f0eff4; 
+
+}
+
 </style>
   
