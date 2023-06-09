@@ -1,7 +1,7 @@
 <template>
-    <div class="columns is-multiline is-centered">
+    <div v-if="boolean" class="columns is-multiline is-centered">
       <div class="header column is-12 mt-5 has-text-centered" :style="styleHeader">
-        <img class="bgImage is-inline-block" :style="styleHeaderImg" v-if="boolean" :src="'http://localhost:1337' + post.attributes.media.data[0].attributes.url"/>
+        <img class="bgImage is-inline-block" :style="styleHeaderImg" v-if="post.attributes.media.data != null" :src="'http://localhost:1337' + post.attributes.media.data[0].attributes.url"/>
 
         <h1 class="title overText"> {{ title }} </h1>
       </div>
@@ -10,10 +10,16 @@
         <template v-for="(item, index) in body">
           <h1 v-if="item.title" class="title bodyContent mt-5" style="font-size: 25px;"> {{ item.txt }} </h1>
 
-          <template v-else lang="md">
+          <template v-if="!item.title && post.attributes.media.data != null">
+            <div>
+              
+            </div>
+          </template>
+
+          <!-- <template v-else lang="md">
             <div v-html="$md.render(item.txt)" class="bodyContent"></div>
             <br v-if="index < body.length - 1">
-          </template>
+          </template> -->
         </template>
       </div>
     </div>
@@ -61,7 +67,7 @@
           window.addEventListener("resize", this.resizeListener)
           this.resizeListener()
 
-          // console.log(this.post)
+          console.log(this.post)
           
           let bodyTmp = []
 
@@ -114,6 +120,7 @@
     position: relative;
     overflow: hidden;
     border-radius: 5px 5px 0 0;
+    background-color: #336381;
   }
 
   .body {
