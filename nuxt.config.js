@@ -58,5 +58,29 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  router: {
+    extendRoutes(routes, resolve) {
+      const popular = routes.find(route => route.name === 'popular');
+      const local = routes.find(route => route.name === 'local');
+      const more = routes.find(route => route.name === 'more');
+
+      if (popular) {
+        popular.path = '/popular/:pages';
+        popular.component = resolve(__dirname, 'pages/popular.vue');
+      }
+
+      if (local) {
+        local.path = '/local/:pages';
+        local.component = resolve(__dirname, 'pages/local.vue');
+      }
+
+      if (more) {
+        more.path = '/more/:pages';
+        more.component = resolve(__dirname, 'pages/more.vue');
+      }
+    }
   }
+
 }

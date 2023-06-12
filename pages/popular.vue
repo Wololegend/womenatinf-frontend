@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ $route.params.page }}</h1>
+    <h1>holaquetal</h1>
     <nav v-if="pages > 1" class="pagination" role="navigation" aria-label="pagination">
       <a class="pagination-previous">Previous</a>
       <a class="pagination-next">Next page</a>
