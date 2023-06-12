@@ -1,22 +1,21 @@
 <template>
     <div v-if="boolean" class="columns is-multiline is-centered">
       <div class="header column is-12 mt-5 has-text-centered" :style="styleHeader">
-        <img class="bgImage is-inline-block" :style="styleHeaderImg" v-if="post.attributes.media.data != null" :src="'http://localhost:1337' + post.attributes.media.data[0].attributes.url"/>
+        <img class="bgImage is-inline-block" :style="styleHeaderImg" v-if="post.attributes.media.data !== null" :src="'http://localhost:1337' + post.attributes.media.data[0].attributes.url"/>
 
         <h1 class="title overText"> {{ title }} </h1>
       </div>
 
-      <div class="body column is-12">
+      <div class="body">
         <template v-for="(item, index) in body">
           <h1 v-if="item.title" class="title bodyContent mt-5" style="font-size: 25px;"> {{ item.txt }} </h1>
 
-          <template v-if="!item.title && post.attributes.media.data != null">
-            <div>
-              
-            </div>
+          <template class="columns" v-if="!item.title && post.attributes.media.data !== null && index > 1 && (index % 2) != 0">
+            <div class="column is-6 bodyContent" v-html="$md.render(item.txt)"></div>
+            <img class="column is-2" src="../assets/women@infLogoPequeño.png">
           </template>
 
-          <!-- <template v-else lang="md">
+          <!-- <template v-if="!item.title && (index % 2) == 0" lang="md">
             <div v-html="$md.render(item.txt)" class="bodyContent"></div>
             <br v-if="index < body.length - 1">
           </template> -->
@@ -58,7 +57,7 @@
         this.idString += number
       })
 
-      await axios.get('http://localhost:1337/api/publicaciones?populate=media&filters[id][$eq]=' + this.idString)
+      await axios.get('http://localhost:1337/api/publicaciones?populate=media&filters[id][$eq]' + this.idString)
         .then((response) => {
           this.boolean = true
 
@@ -100,7 +99,7 @@
 
   .bgImage {
     position:absolute;
-    z-index: -1;
+    z-index: 2;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -109,7 +108,7 @@
 
   .overText {
     position:absolute;
-    z-index: 1;
+    z-index: 3;
     top: 60%;
     left: 5%;
     background-color: #f0eff4;
@@ -120,7 +119,9 @@
     position: relative;
     overflow: hidden;
     border-radius: 5px 5px 0 0;
-    background-color: #336381;
+    background-image: url("../assets/women@infLogo.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
   }
 
   .body {
@@ -130,7 +131,6 @@
 
   .bodyContent {
     margin-left: 5%;
-    margin-right: 5%
   }
 
   </style>

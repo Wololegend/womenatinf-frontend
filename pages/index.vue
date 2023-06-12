@@ -1,6 +1,4 @@
 <template>
-  <!-- There are four <sections>. Each one of them is a tile that contains: the title, the "popular" section, the "local", and the rest of the posts. -->
-
   <div class="tile is-ancestor is-flex-wrap-wrap mt-4">
     <div class="tile is-parent is-12" style="height: 100%">
       <article v-if="boolean && popular.length > 0"
@@ -13,7 +11,9 @@
       <div class="tile is-parent">
         <article v-if="boolean && popular.length > 0" class="tile is-child notification customMainTile">
           <div class="is-vcentered my-2 container">
-            <h2 class="title ml-3"> Proyectos destacados </h2>
+            <nuxt-link class="nuxtLinkDecoration" to="/popular/1">
+              <h2 class="title ml-3 mb-5"> Proyectos destacados</h2>
+            </nuxt-link>
 
             <hr class="betweenTitleMain">
 
@@ -35,7 +35,9 @@
       <div class="tile is-parent">
         <article v-if="boolean && local.length > 0" class="tile is-child notification customMainTile">
           <div class="is-vcentered my-2 container">
-            <h2 class="title ml-3"> Proyectos locales </h2>
+            <nuxt-link class="nuxtLinkDecoration" to="/local">
+              <h2 class="title ml-3 mb-5"> Proyectos locales </h2>
+            </nuxt-link>
 
             <hr class="betweenTitleMain">
 
@@ -60,7 +62,9 @@
       <article v-if="boolean && rest.length > 0" class="tile is-child notification customSideTile">
         <div class="content">
           <div class="is-vcentered container mt-3">
-            <h2 class="title"> Más iniciativas </h2>
+            <nuxt-link class="nuxtLinkDecoration" to="/more/1">
+              <h2 class="title titleSideHover ml-3 mb-5"> Más iniciativas </h2>
+            </nuxt-link>
 
             <hr class="betweenTitleSide">
 
@@ -72,99 +76,11 @@
 
               <hr class="betweenPostsSide is-centered" v-if="index < 4">
             </template>
-
-            <!-- <short-post :img="'http://localhost:1337' + rest[0].attributes.media.data[0].attributes.url"
-              :title="rest[0].attributes.titulo" :text="rest[0].attributes.cuerpo" :small="true"></short-post>
-
-            <hr class="betweenPostsSide is-centered" v-if="rest.length > 1">
-
-            <short-post v-if="rest.length > 1"
-              :img="'http://localhost:1337' + rest[1].attributes.media.data[0].attributes.url"
-              :title="rest[1].attributes.titulo" :text="rest[1].attributes.cuerpo" :small="true"></short-post>
-
-            <hr class="betweenPostsSide is-centered" v-if="rest.length > 1">
-
-            <short-post v-if="rest.length > 2"
-              :img="'http://localhost:1337' + rest[1].attributes.media.data[0].attributes.url"
-              :title="rest[1].attributes.titulo" :text="rest[1].attributes.cuerpo" :small="true"></short-post>
-
-            <hr class="betweenPostsSide is-centered" v-if="rest.length > 1">
-
-            <short-post v-if="rest.length > 3"
-              :img="'http://localhost:1337' + rest[1].attributes.media.data[0].attributes.url"
-              :title="rest[1].attributes.titulo" :text="rest[1].attributes.cuerpo" :small="true"></short-post> -->
           </div>
         </div>
       </article>
     </div>
   </div>
-
-  <!-- <div class="columns is-multiline is-centered my-5">
-    <section class="column is-full titleTileBorder">
-      <article class="notification titleTile is-full has-text-centered">
-        <h1 class="title is-inline-block" style=""> Nuestros logros más recientes </h1>
-      </article>
-    </section>
-
-    <section v-if="boolean && popular.length > 0" class="column is-8 customTile mt-3">
-      <div class="is-vcentered my-2 container">
-        <h2 class="title ml-3"> Destacados </h2>
-
-        <hr class="betweenTitleMain">
-
-        <short-post
-          class="ml-3"
-          :img="'http://localhost:1337' + popular[0].attributes.media.data[0].attributes.url"
-          :title="popular[0].attributes.titulo"
-          :text="popular[0].attributes.cuerpo"
-        ></short-post>
-
-        <hr 
-          class="betweenPostsMain is-centered"
-          v-if="popular.length > 1"  
-        >
-
-        <short-post
-          class="ml-3 mb-1"
-          v-if="popular.length > 1"
-          :img="'http://localhost:1337' + popular[1].attributes.media.data[0].attributes.url"
-          :title="popular[1].attributes.titulo"
-          :text="popular[1].attributes.cuerpo"
-        ></short-post>
-      </div>
-    </section>
-
-    <section v-if="boolean && popular.length > 0" class="column is-1  mt-3">
-      
-    </section>
-
-    <section v-if="boolean && popular.length > 0" class="column is-3 customTile mt-3">
-      <div class="is-vcentered my-2 container">
-        <h2 class="title ml-3"> Destacados </h2>
-
-        <hr class="betweenTitleMain">
-
-        <short-post
-          class="ml-3"
-          :img="'http://localhost:1337' + popular[0].attributes.media.data[0].attributes.url"
-          :title="popular[0].attributes.titulo"
-          :text="popular[0].attributes.cuerpo"
-        ></short-post>
-
-        <hr 
-          class="betweenPostsMain is-centered"
-          v-if="popular.length > 1"  
-        >
-
-        <short-post
-          class="ml-3 mb-1"
-          v-if="popular.length > 1"
-          :img="'http://localhost:1337' + popular[1].attributes.media.data[0].attributes.url"
-          :title="popular[1].attributes.titulo"
-          :text="popular[1].attributes.cuerpo"
-        ></short-post>
-      </div>
-    </section> -->
 </div></template>
 
 <script>
@@ -193,11 +109,11 @@ export default {
           new Promise((resolve, reject) => {
             this.posts = response.data.data
 
+            console.log(this.posts)
+
             this.posts.sort((item1, item2) => {
               return item2.attributes.publishedAt - item1.attributes.publishedAt
             })
-
-            // this.popular = this.posts.filter(post => { post.attributes.Tipos == 'Destacados' })
 
             this.posts.forEach(post => {
               if (post.attributes.Tipos == 'Destacados')
@@ -207,27 +123,12 @@ export default {
               else
                 this.rest.push(post)
 
-                console.log(this.popular[0])
+                console.log(this.rest)
             })
 
             resolve()
           }).then(() => {
-            // this.posts.forEach(post => {
-            //   switch (post.attributes.Tipos) {
-            //     case "Destacados":
-            //       this.popular.push(post)
-            //     break;
-
-            //     case "Locales":
-            //       this.local.push(post)
-            //     break;
-
-            //     case "No destacados":
-            //       this.rest.push(post)
-            //     break;
-            //   }
-            // })         
-
+            
             this.boolean = true
 
             loadingComponent.close()
@@ -246,24 +147,6 @@ export default {
 <style scoped>
 .customMainTile {
   background-color: #bdd0db;
-  color: #121212;
-  border-radius: 5px;
-}
-
-.customSideTile {
-  background-color: #32576e;
-  color: #fff;
-  border-radius: 5px;
-}
-
-.titleTile {
-  color: #32576e;
-  background-color: #fff;
-  height: 15%
-}
-
-.titleTileBorder {
-  border: 3px dashed #32576e;
   border-radius: 5px;
   height: 7rem
 }
@@ -301,7 +184,7 @@ export default {
 }
 
 .hoverMain:hover {
-  background-color: #d4e0e7;
+  background-color: #d1d1d3;
 }
 
 .hoverSide:hover {

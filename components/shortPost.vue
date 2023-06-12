@@ -65,8 +65,6 @@
 
         this.textPreview += '...'
       }
-
-      console.log(this.img)
     },
   }
   </script>
