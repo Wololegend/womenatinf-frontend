@@ -31,7 +31,7 @@
   <script>  
   export default {
     name: 'shortPost',
-    props: ['img', 'title', 'text', 'small'],
+    props: ['img', 'title', 'text', 'size'],
     data() {
       return {
         textPreview: '',
@@ -49,7 +49,7 @@
     async created() {
       this.altImg = 'Imagen de "' + this.title + '"'
 
-      if (this.small) {
+      if (this.size == 'small') {
         this.imgClass = 'column is-half ml-4 mr-2'
         this.txtClass = 'block column is-half'
         this.ratioImg = ''
@@ -59,12 +59,24 @@
         this.widthText = 'width: 40%'
         this.maxCharsPerLine = 50
       }
+      else if (this.size == 'big') {
+        this.imgClass = 'column is-3 ml-2 mr-2'
+        this.txtClass = 'block column is-9 mr-2'
+        this.ratioImg = ''
+        this.titleClass = 'title mt-3 is-size-4',
+        this.contentClass = 'content is-size-7'
+        this.colorTitle = 'color: #121212'
+        this.widthText = 'width: 70%'
+        this.maxCharsPerLine = 500
+      }
 
       if (this.text.length > this.maxCharsPerLine) {
         this.textPreview = this.text.slice(0, this.maxCharsPerLine)
 
         this.textPreview += '...'
       }
+      else
+        this.textPreview = this.text
     },
   }
   </script>

@@ -2,7 +2,7 @@
   <!-- There are four <sections>. Each one of them is a tile that contains: the title, the "popular" section, the "local", and the rest of the posts. -->
 
   <div class="tile is-ancestor is-flex-wrap-wrap mt-4">
-    <div class="tile is-parent is-12" style="height: 100%">
+    <div class="tile is-parent is-12">
       <article v-if="boolean && popular.length > 0"
         class="tile is-child notification is-flex is-flex-direction-column is-justify-content-center is-align-items-center titleTile">
         <h1 class="title" style=""> Nuestros logros más recientes </h1>
@@ -37,7 +37,7 @@
       <div class="tile is-parent">
         <article v-if="boolean && local.length > 0" class="tile is-child notification customMainTile">
           <div class="is-vcentered my-2 container">
-            <nuxt-link to="/more/1" style="text-decoration: none">
+            <nuxt-link to="/local/1" style="text-decoration: none">
               <h2 class="title mb-5"> Proyectos locales </h2>
             </nuxt-link>
 
@@ -73,7 +73,7 @@
             <template v-for="(post, index) in this.rest">
               <nuxt-link class="nuxtLinkDecoration" :to="`/${post.attributes.titulo}+${post.id}`">
                 <short-post class="hoverSide ml-1" :img="post.attributes.media.data"
-                  :title="post.attributes.titulo" :text="post.attributes.cuerpo" :small="true"></short-post>
+                  :title="post.attributes.titulo" :text="post.attributes.cuerpo" size="small"></short-post>
               </nuxt-link>
 
               <hr class="betweenPostsSide is-centered" v-if="index < 4">
@@ -190,7 +190,7 @@ export default {
 }
 
 .betweenTitleMain {
-  width: 96%;
+  width: 100%;
   border-color: #32576e;
   background-color: #32576e;
   height: 2px;
