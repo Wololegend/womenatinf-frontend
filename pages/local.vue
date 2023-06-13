@@ -3,7 +3,7 @@
         <div class="tile is-parent is-12 my-5 titleTile">
             <article style="background-color: transparent"
                 class="tile is-child notification is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
-                <h1 class="title" style=""> Todas las iniciativas </h1>
+                <h1 class="title" style=""> Proyectos locales </h1>
             </article>
         </div>
 
