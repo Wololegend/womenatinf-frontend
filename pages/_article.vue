@@ -29,7 +29,7 @@
           <template v-else-if="('imgUrl' in item)">
             <div v-if="!item.imgPos" class="tile is-parent is-4 imgContainer my-5"
               style="margin-left: 4%; margin-right: 4%">
-              <img :style="imgHeightStyle" class="tile is-child" :src="item.imgUrl">
+              <img :style="{'max-height': imgHeightStyle}" class="tile is-child" :src="item.imgUrl">
             </div>
 
             <div class="tile is-vertical is-6" :style="item.imgPos ? 'margin-left: 4%': ''">
@@ -44,7 +44,7 @@
 
             <div v-if="item.imgPos" class="tile is-parent is-4 imgContainer my-5 mr-5"
               style="margin-left: 4%; margin-right: 4%">
-              <img :style="imgHeightStyle" class="tile is-child" :src="item.imgUrl">
+              <img :style="{'max-height': imgHeightStyle}" class="tile is-child" :src="item.imgUrl">
             </div>
           </template>
 
@@ -76,7 +76,7 @@ export default {
       styleHeader: 'height: ',
       styleHeaderImg: 'width: ',
       paragraphsHeights: [],
-      imgHeightStyle: 'max-height: 100%',
+      imgHeightStyle: '100%',
 
     }
   },
@@ -138,10 +138,26 @@ export default {
       this.windowHeight = window.innerHeight * 0.3;
       this.windowWidth = window.innerWidth;
 
-      console.log(this.windowWidth)
+      // console.log(this.windowWidth)
 
       this.styleHeader += Math.round(this.windowHeight).toString() + 'px'
       this.styleHeaderImg += Math.round(this.windowWidth).toString() + 'px'
+
+      let underLimit = 1215
+      let overLimit = 1400
+
+      if (this.windowWidth < overLimit && this.windowWidth >= underLimit) {
+        this.imgHeightStyle = ((this.windowWidth) * 100) / overLimit
+
+        console.log('OVER 1400', this.imgHeightStyle)
+      }
+      else if (this.windowWidth < underLimit) {
+        this.imgHeightStyle = (((this.windowWidth) * 100) / underLimit) / 2
+
+        console.log('OVER 1215', this.imgHeightStyle)
+      }
+
+      this.imgHeightStyle = this.imgHeightStyle.toString() + '%'
     }
   }
 }
