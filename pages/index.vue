@@ -19,14 +19,14 @@
 
             <hr class="betweenTitleMain">
 
-            <nuxt-link class="nuxtLinkDecoration" :to="`/${popular[0].attributes.titulo}+${popular[0].id}`">
+            <nuxt-link class="nuxtLinkDecoration" :to="`/${popular[0].url}`">
               <short-post class="ml-3 hoverMain" :img="popular[0].attributes.media.data"
               :title="popular[0].attributes.titulo" :text="popular[0].attributes.cuerpo"></short-post>
             </nuxt-link>
 
             <hr class="betweenPostsMain is-centered" v-if="popular.length > 1">
 
-            <nuxt-link class="nuxtLinkDecoration" :to="`/${popular[1].attributes.titulo}+${popular[1].id}`">
+            <nuxt-link class="nuxtLinkDecoration" :to="`/${popular[1].url}`">
               <short-post class="ml-3 mb-1 hoverMain" v-if="popular.length > 1"
                 :img="popular[1].attributes.media.data"
                 :title="popular[1].attributes.titulo" :text="popular[1].attributes.cuerpo"></short-post>
@@ -43,14 +43,14 @@
 
             <hr class="betweenTitleMain">
 
-            <nuxt-link class="nuxtLinkDecoration" :to="`/${local[0].attributes.titulo}+${local[0].id}`">
+            <nuxt-link class="nuxtLinkDecoration" :to="`/${local[0].url}`">
               <short-post class="ml-3 hoverMain" :img="local[0].attributes.media.data"
                 :title="local[0].attributes.titulo" :text="local[0].attributes.cuerpo"></short-post>
             </nuxt-link>
 
             <hr class="betweenPostsMain is-centered" v-if="local.length > 1">
 
-            <nuxt-link class="nuxtLinkDecoration" :to="`/${local[1].attributes.titulo}+${local[1].id}`">
+            <nuxt-link class="nuxtLinkDecoration" :to="`/${local[1].url}`">
               <short-post class="ml-3 mb-1 hoverMain" v-if="local.length > 1"
                 :img="local[1].attributes.media.data"
                 :title="local[1].attributes.titulo" :text="local[1].attributes.cuerpo"></short-post>
@@ -71,7 +71,7 @@
             <hr class="betweenTitleSide">
 
             <template v-for="(post, index) in this.rest">
-              <nuxt-link class="nuxtLinkDecoration" :to="`/${post.attributes.titulo}+${post.id}`">
+              <nuxt-link class="nuxtLinkDecoration" :to="`/${post.url}`">
                 <short-post class="hoverSide ml-1" :img="post.attributes.media.data"
                   :title="post.attributes.titulo" :text="post.attributes.cuerpo" size="small"></short-post>
               </nuxt-link>
@@ -111,6 +111,12 @@ export default {
           new Promise((resolve, reject) => {
             this.posts = response.data.data
 
+            this.posts.forEach(post => {
+              post.url = post.attributes.titulo.replace(new RegExp(" ", "g"), "+")
+
+              post.url += "-" + post.id
+            })
+
             this.posts.sort((item1, item2) => {
               return item2.attributes.publishedAt - item1.attributes.publishedAt
             })
@@ -122,8 +128,6 @@ export default {
                 this.local.push(post)
               else
                 this.rest.push(post)
-
-                console.log(this.popular[0])
             })
 
             resolve()

@@ -1,136 +1,196 @@
 <template>
-    <div v-if="boolean" class="columns is-multiline is-centered">
-      <div class="header column is-12 mt-5 has-text-centered" :style="styleHeader">
-        <img class="bgImage is-inline-block" :style="styleHeaderImg" v-if="post.attributes.media.data !== null" :src="'http://localhost:1337' + post.attributes.media.data[0].attributes.url"/>
+  <div v-if="boolean" class="tile is-ancestor is-flex-wrap-wrap">
+    <div class="header tile is-parent is-12 mt-5 has-text-centered" :style="styleHeader">
+      <img class="bgImage tile is-child is-inline-block" :style="styleHeaderImg"
+        v-if="post.attributes.media.data !== null"
+        :src="'http://localhost:1337' + post.attributes.media.data[0].attributes.url" />
 
-        <h1 class="title overText"> {{ title }} </h1>
-      </div>
+      <h1 class="title overText"> {{ title }} </h1>
+    </div>
 
-      <div class="body">
+    <div class="body tile is-parent mb-5">
+      <div class="tile is-ancestor is-flex-wrap-wrap mt-2">
         <template v-for="(item, index) in body">
-          <h1 v-if="item.title" class="title bodyContent mt-5" style="font-size: 25px;"> {{ item.txt }} </h1>
+          <template v-if="item.title">
+            <div v-if="('imgUrl' in body[index + 1]) && !body[index + 1].imgPos" class="tile is-parent is-4">
+              
+            </div>
+            
+            <div class="tile is-parent is-6 mt-3" :style="(body[index + 1].imgPos || !('imgPos' in body[index + 1]) || index == 0) ? 'margin-left: 4%' : 'margin-left: 7.8%'">
+              <h2 class="title bodyContent mt-5 tile is-child" style="font-size: 25px;"> {{ item.txt }}
+              </h2>
+            </div>
 
-          <template class="columns" v-if="!item.title && post.attributes.media.data !== null && index > 1 && (index % 2) != 0">
-            <div class="column is-6 bodyContent" v-html="$md.render(item.txt)"></div>
-            <img class="column is-2" src="../assets/women@infLogoPequeño.png">
+            <div v-if="('imgUrl' in body[index + 1]) && body[index + 1].imgPos" class="tile is-parent is-4 mb-5">
+              
+            </div>
           </template>
 
-          <!-- <template v-if="!item.title && (index % 2) == 0" lang="md">
-            <div v-html="$md.render(item.txt)" class="bodyContent"></div>
-            <br v-if="index < body.length - 1">
-          </template> -->
+          <template v-else-if="('imgUrl' in item)">
+            <div v-if="!item.imgPos" class="tile is-parent is-4 imgContainer my-5"
+              style="margin-left: 4%; margin-right: 4%">
+              <img :style="imgHeightStyle" class="tile is-child" :src="item.imgUrl">
+            </div>
+
+            <div class="tile is-vertical is-6" :style="item.imgPos ? 'margin-left: 4%': ''">
+              <div class="tile is-parent container">
+                <div style="display: inline-block" class="tile is-child" v-html="$md.render(item.txt)"></div>
+              </div>
+
+              <div class="tile is-parent">
+                <div style="display: inline-block" class="tile is-child" v-html="$md.render(body[index + 1].txt)"></div>
+              </div>
+            </div>
+
+            <div v-if="item.imgPos" class="tile is-parent is-4 imgContainer my-5 mr-5"
+              style="margin-left: 4%; margin-right: 4%">
+              <img :style="imgHeightStyle" class="tile is-child" :src="item.imgUrl">
+            </div>
+          </template>
+
+          <template v-else-if="!('imgUrl' in body[index - 1]) && index > 0 && !item.title" lang="md">
+            <div style="display: inline-block; margin-left: 5%; margin-right: 5%" v-html="$md.render(item.txt)"></div>
+            <br>
+          </template>
         </template>
+
+        <br>
       </div>
     </div>
+  </div>
 </template>
   
-  <script>
-  import axios from 'axios'
+<script>
+import axios from 'axios'
 
-  export default {
-    name: 'Article',
-    data() {
-      return {
-        boolean: false,
-        idString: '',
-        title: 'Hola',
-        body: [],
-        post: {},
-        windowHeight: 0,
-        windowWidth: 0,
-        styleHeader: 'height: ',
-        styleHeaderImg: 'width: '
-      }
-    },
-    async mounted() {
-      let article = this.$route.params.article
-      let tmpArray = []
-      let i = article.length - 1
+export default {
+  name: 'Article',
+  data() {
+    return {
+      boolean: false,
+      title: '',
+      body: [],
+      post: {},
+      windowHeight: 0,
+      windowWidth: 0,
+      styleHeader: 'height: ',
+      styleHeaderImg: 'width: ',
+      paragraphsHeights: [],
+      imgHeightStyle: 'max-height: 100%',
 
-      while (i >= 0 && article[i] != '+') {
-        tmpArray.unshift(article[i])
+    }
+  },
+  async mounted() {
+    await axios.get('http://localhost:1337/api/publicaciones?populate=media&filters[id][$eq]=' + this.$route.params.id)
+      .then((response) => {
+        this.post = response.data.data[0]
 
-        i--
-      }
+        console.log(this.post)
 
-      tmpArray.forEach(number => {
-        this.idString += number
-      })
+        window.addEventListener("resize", this.resizeListener)
+        this.resizeListener()
 
-      await axios.get('http://localhost:1337/api/publicaciones?populate=media&filters[id][$eq]' + this.idString)
-        .then((response) => {
-          this.boolean = true
+        let bodyTmp = []
 
-          this.post = response.data.data[0]
+        this.title = this.post.attributes.titulo
+        bodyTmp = this.post.attributes.cuerpo.split(/\r?\n/)
 
-          window.addEventListener("resize", this.resizeListener)
-          this.resizeListener()
+        console.log(bodyTmp)
 
-          console.log(this.post)
-          
-          let bodyTmp = []
-
-          this.title = this.post.attributes.titulo
-          bodyTmp = this.post.attributes.cuerpo.split(/\r?\n/)
-
-          bodyTmp.forEach((item) => {
-            if(item[0] == '#')
-              this.body.push({txt: item.substring(item.indexOf("# ") + 2), title: true})
-            else
-              this.body.push({txt: item, title: false})
-          })
-
-          console.log(this.body)
+        bodyTmp.forEach((item) => {
+          if (item[0] == '#')
+            this.body.push({ txt: item.substring(item.indexOf("# ") + 2), title: true })
+          else
+            this.body.push({ txt: item, title: false })
         })
-    },
-    methods: {
-      resizeListener() {
-        this.windowHeight = window.innerHeight*0.3;
-        this.windowWidth = window.innerWidth;
 
-        this.styleHeader += Math.round(this.windowHeight).toString() + 'px'
-        this.styleHeaderImg += Math.round(this.windowWidth).toString() + 'px'
-      }
+        this.body = this.body.filter((item) => item.txt !== "")
+
+        if (this.post.attributes.media.data !== null) {
+          let pos = true
+
+          for (let i = 0; i < this.body.length; i++) {
+            if (i > 1 && i % 3 == 0 && i < this.body.length - 2) {
+              if (this.body[i].title) {
+                this.body[i + 1].imgUrl = 'http://localhost:1337' + this.post.attributes.media.data[i % this.post.attributes.media.data.length].attributes.url
+                this.body[i + 1].imgPos = pos
+              }
+              else {
+                this.body[i].imgUrl = 'http://localhost:1337' + this.post.attributes.media.data[i % this.post.attributes.media.data.length].attributes.url
+                this.body[i].imgPos = pos
+              }
+
+              pos = !pos
+            }
+
+            if (i == this.body.length - 1) {
+              this.boolean = true
+            }
+          }
+        }
+
+        console.log(this.body)
+
+      })
+  },
+  methods: {
+    resizeListener() {
+      this.windowHeight = window.innerHeight * 0.3;
+      this.windowWidth = window.innerWidth;
+
+      console.log(this.windowWidth)
+
+      this.styleHeader += Math.round(this.windowHeight).toString() + 'px'
+      this.styleHeaderImg += Math.round(this.windowWidth).toString() + 'px'
     }
   }
-  </script>
+}
+</script>
   
-  <style scoped>
+<style scoped>
+.bgImage {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: blur(5px)
+}
 
-  .bgImage {
-    position:absolute;
-    z-index: 2;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    filter: blur(5px)
-  }
+.overText {
+  position: absolute;
+  z-index: 3;
+  top: 60%;
+  left: 5%;
+  background-color: #f0eff4;
+  color: #121212
+}
 
-  .overText {
-    position:absolute;
-    z-index: 3;
-    top: 60%;
-    left: 5%;
-    background-color: #f0eff4;
-    color: #121212
-  }
+.header {
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px 5px 0 0;
+  background-image: url("../assets/women@infLogo.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
 
-  .header {
-    position: relative;
-    overflow: hidden;
-    border-radius: 5px 5px 0 0;
-    background-image: url("../assets/women@infLogo.png");
-    background-repeat: no-repeat;
-    background-size: 100%;
-  }
+.body {
+  background-color: #bdd0db;
+  border-radius: 0 0 5px 5px;
+}
 
-  .body {
-    background-color: #bdd0db;
-    border-radius: 0 0 5px 5px;
-  }
+.bodyContent {
+  margin-left: 5%;
+}
 
-  .bodyContent {
-    margin-left: 5%;
-  }
+.imgContainer {
+  display: flex;
+  justify-content: center;
+}
 
-  </style>
+.imgContainer img {
+  width: auto;
+  height: auto;
+}
+</style>

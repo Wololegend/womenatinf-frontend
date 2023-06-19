@@ -9,7 +9,7 @@
 
     <div class="body mb-5">
       <template v-for="(post, index) in paginatedPosts[$route.params.pages - 1]">
-        <nuxt-link style="text-decoration: none; color: #121212" :to="`/${post.attributes.titulo}+${post.id}`">
+        <nuxt-link style="text-decoration: none; color: #121212" :to="`/${post.attributes.titulo}-${post.id}`">
           <div class="mx-5" style="overflow: hidden">
             <short-post v-if="index == 0" class="hoverMain mt-5 mb-1" :img="post.attributes.media.data" :title="post.attributes.titulo"
             :text="post.attributes.cuerpo" size="big"></short-post>
