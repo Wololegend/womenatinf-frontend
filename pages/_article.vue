@@ -9,31 +9,46 @@
     </div>
 
     <div class="body tile is-parent mb-5">
-      <div class="tile is-ancestor is-flex-wrap-wrap mt-2">
+      <div :class="windowWidth >= 770 ? 'tile is-ancestor is-flex-wrap-wrap mt-2 ml-6' : 'tile is-ancestor is-flex-wrap-wrap mt-2'">
         <template v-for="(item, index) in body">
           <template v-if="item.title">
-            <div v-if="('imgUrl' in body[index + 1]) && !body[index + 1].imgPos" class="tile is-parent is-4">
+            <div v-if="'imgUrl' in body[index + 1] && !body[index + 1].imgPos && windowWidth >= 770" class="tile is-parent is-4">
               
             </div>
+
+            <div v-if="windowWidth < 770" class="tile is-parent is-6 mt-3" style="margin-left: 2%">
+              <h2 class="title bodyContent mt-5 tile is-child" style="font-size: 25px;"> {{ item.txt }}
+              </h2>
+            </div>
             
-            <div class="tile is-parent is-6 mt-3" :style="(body[index + 1].imgPos || !('imgPos' in body[index + 1]) || index == 0) ? 'margin-left: 4%' : 'margin-left: 7.8%'">
+            <div v-else class="tile is-parent is-6 mt-3" :style="(body[index + 1].imgPos || !('imgPos' in body[index + 1]) || index == 0) ? 'margin-left: 4%' : 'margin-left: 7.8%'">
               <h2 class="title bodyContent mt-5 tile is-child" style="font-size: 25px;"> {{ item.txt }}
               </h2>
             </div>
 
-            <div v-if="('imgUrl' in body[index + 1]) && body[index + 1].imgPos" class="tile is-parent is-4 mb-5">
+            <div v-if="'imgUrl' in body[index + 1] && body[index + 1].imgPos && windowWidth >= 770" class="tile is-parent is-4 mb-5">
               
             </div>
           </template>
 
-          <template v-else-if="('imgUrl' in item)">
-            <div v-if="!item.imgPos" class="tile is-parent is-4 imgContainer my-5"
+          <template v-else-if="windowWidth < 770">
+            <div style="display: inline-block; margin-left: 5%; margin-right: 5%" v-html="$md.render(item.txt)"></div>
+            <br>
+
+            <div v-if="post.attributes.media.data !== null" class="tile is-parent is-4 imgContainer my-5 mr-5"
+              style="margin-left: 4%; margin-right: 4%">
+              <img :style="{'max-height': imgHeightStyle}" class="tile is-child" :src="item.imgUrl">
+            </div>
+          </template>
+
+          <template v-else-if="'imgUrl' in item">
+            <div v-if="!item.imgPos && windowWidth >= 770" class="tile is-parent is-4 imgContainer my-5"
               style="margin-left: 4%; margin-right: 4%">
               <img :style="{'max-height': imgHeightStyle}" class="tile is-child" :src="item.imgUrl">
             </div>
 
-            <div class="tile is-vertical is-6" :style="item.imgPos ? 'margin-left: 4%': ''">
-              <div class="tile is-parent container">
+            <div :class="'tile is-vertical is-6' + txtMargins" :style="item.imgPos ? 'margin-left: 4%': ''">
+              <div class="tile is-parent">
                 <div style="display: inline-block" class="tile is-child" v-html="$md.render(item.txt)"></div>
               </div>
 
@@ -42,14 +57,14 @@
               </div>
             </div>
 
-            <div v-if="item.imgPos" class="tile is-parent is-4 imgContainer my-5 mr-5"
+            <div v-if="item.imgPos || windowWidth < 770" class="tile is-parent is-4 imgContainer my-5 mr-5"
               style="margin-left: 4%; margin-right: 4%">
               <img :style="{'max-height': imgHeightStyle}" class="tile is-child" :src="item.imgUrl">
             </div>
           </template>
 
-          <template v-else-if="!('imgUrl' in body[index - 1]) && index > 0 && !item.title" lang="md">
-            <div style="display: inline-block; margin-left: 5%; margin-right: 5%" v-html="$md.render(item.txt)"></div>
+          <template v-else-if="!('imgUrl' in body[index - 1]) && !item.title" lang="md">
+            <div style="display: inline-block; margin-left: 5%; margin-right: 9%" v-html="$md.render(item.txt)"></div>
             <br>
           </template>
         </template>
@@ -77,7 +92,7 @@ export default {
       styleHeaderImg: 'width: ',
       paragraphsHeights: [],
       imgHeightStyle: '100%',
-
+      txtMargins: ''
     }
   },
   async mounted() {
@@ -108,19 +123,22 @@ export default {
 
         if (this.post.attributes.media.data !== null) {
           let pos = true
+          let imgIndex = 0
 
           for (let i = 0; i < this.body.length; i++) {
             if (i > 1 && i % 3 == 0 && i < this.body.length - 2) {
               if (this.body[i].title) {
-                this.body[i + 1].imgUrl = 'http://localhost:1337' + this.post.attributes.media.data[i % this.post.attributes.media.data.length].attributes.url
+                this.body[i + 1].imgUrl = 'http://localhost:1337' + this.post.attributes.media.data[imgIndex % this.post.attributes.media.data.length].attributes.url
                 this.body[i + 1].imgPos = pos
               }
               else {
-                this.body[i].imgUrl = 'http://localhost:1337' + this.post.attributes.media.data[i % this.post.attributes.media.data.length].attributes.url
+                this.body[i].imgUrl = 'http://localhost:1337' + this.post.attributes.media.data[imgIndex % this.post.attributes.media.data.length].attributes.url
                 this.body[i].imgPos = pos
               }
 
               pos = !pos
+
+              imgIndex++
             }
 
             if (i == this.body.length - 1) {
@@ -146,18 +164,17 @@ export default {
       let underLimit = 1215
       let overLimit = 1400
 
-      if (this.windowWidth < overLimit && this.windowWidth >= underLimit) {
+      if (this.windowWidth < overLimit && this.windowWidth >= underLimit) 
         this.imgHeightStyle = ((this.windowWidth) * 100) / overLimit
-
-        console.log('OVER 1400', this.imgHeightStyle)
-      }
-      else if (this.windowWidth < underLimit) {
+      
+      else if (this.windowWidth < underLimit) 
         this.imgHeightStyle = (((this.windowWidth) * 100) / underLimit) / 2
 
-        console.log('OVER 1215', this.imgHeightStyle)
-      }
-
       this.imgHeightStyle = this.imgHeightStyle.toString() + '%'
+
+      if (this.windowWidth < 770) {
+        this.txtMargins = 'txtMargins'
+      }
     }
   }
 }
@@ -209,4 +226,10 @@ export default {
   width: auto;
   height: auto;
 }
+
+.txtMargins {
+  margin-left: 4%;
+  margin-right: 4%
+}
+
 </style>
