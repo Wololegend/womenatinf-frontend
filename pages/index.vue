@@ -1,26 +1,26 @@
 <template>
   <!-- There are four <sections>. Each one of them is a tile that contains: the title, the "popular" section, the "local", and the rest of the posts. -->
 
-  <div class="tile is-ancestor is-flex-wrap-wrap mt-4">
-    <div class="tile is-parent is-12">
-      <article v-if="boolean && popular.length > 0"
-        class="tile is-child notification is-flex is-flex-direction-column is-justify-content-center is-align-items-center titleTile">
-        <h1 class="title" style=""> Nuestros logros más recientes </h1>
+  <div v-if="boolean" class="tile is-ancestor is-flex-wrap-wrap mt-4">
+    <div class="tile is-parent is-12" :style="windowWidth < 770 ? 'margin-left: 5%; margin-right: 5%' : ''">
+      <article v-if="popular.length > 0"
+        class="tile is-child notification is-flex is-flex-direction-column is-justify-content-center is-align-items-center has-text-centered titleTile">
+        <h1 class="title"> Nuestros logros más recientes </h1>
       </article>
     </div>
 
     <div class="tile is-vertical is-8">
       <div class="tile is-parent">
-        <article v-if="boolean && popular.length > 0" class="tile is-child notification customMainTile">
-          <div class="is-vcentered my-2 container">
+        <article v-if="popular.length > 0" class="tile is-child notification customMainTile">
+          <div :class="windowWidth < 770 ? 'is-vcentered my-2 container has-text-centered' : 'is-vcentered my-2 container'">
             <nuxt-link to="/popular/1" style="text-decoration: none">
               <h2 class="title mb-5"> Proyectos destacados </h2>
             </nuxt-link>
 
-            <hr class="betweenTitleMain">
+            <hr :style="windowWidth < 770 ? 'margin: 0 auto 2rem 2%' : 'margin: 0 auto 2rem auto'" class="betweenTitleMain">
 
             <nuxt-link class="nuxtLinkDecoration" :to="`/${popular[0].url}`">
-              <short-post class="ml-3 hoverMain" :img="popular[0].attributes.media.data"
+              <short-post :class="windowWidth < 770 ? 'hoverMain' : 'ml-3 hoverMain'" :img="popular[0].attributes.media.data"
               :title="popular[0].attributes.titulo" :text="popular[0].attributes.cuerpo"></short-post>
             </nuxt-link>
 
@@ -35,7 +35,7 @@
         </article>
       </div>
       <div class="tile is-parent">
-        <article v-if="boolean && local.length > 0" class="tile is-child notification customMainTile">
+        <article v-if="local.length > 0" class="tile is-child notification customMainTile">
           <div class="is-vcentered my-2 container">
             <nuxt-link to="/local/1" style="text-decoration: none">
               <h2 class="title mb-5"> Proyectos locales </h2>
@@ -61,7 +61,7 @@
       </div>
     </div>
     <div class="tile is-parent">
-      <article v-if="boolean && rest.length > 0" class="tile is-child notification customSideTile">
+      <article v-if="rest.length > 0" class="tile is-child notification customSideTile">
         <div class="content">
           <div class="is-vcentered container mt-3">
             <nuxt-link to="/more/1" style="text-decoration: none">
@@ -98,7 +98,9 @@ export default {
       popular: [],
       local: [],
       rest: [],
-      boolean: false
+      boolean: false,
+      windowHeight: 0,
+      windowWidth: 0
     }
   },
   async created() {
@@ -157,8 +159,15 @@ export default {
       console.log(error)
     }
   },
+  mounted() {
+    window.addEventListener("resize", this.resizeListener)
+    this.resizeListener()
+  },
   methods: {
-
+    resizeListener() {
+      this.windowHeight = window.innerHeight * 0.3;
+      this.windowWidth = window.innerWidth;
+    }
   }
 }
 </script>
@@ -198,7 +207,6 @@ export default {
   border-color: #32576e;
   background-color: #32576e;
   height: 2px;
-  margin: 0 auto 2rem auto
 }
 
 .betweenPostsSide {
