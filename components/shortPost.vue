@@ -6,15 +6,15 @@
       <img v-else src="../assets/women@infLogoPequeño.png" :alt="altImg">
     </div>
 
-    <div :class="txtClass" :style="widthText">
-      <h3 :class="titleClass" :style="colorTitle"> {{ title }} </h3>
+        <div :class="txtClass" :style="widthText">
+            <h3 :class="titleClass" :style="colorTitle"> {{ title }} </h3>
 
-      <template lang="md">
-        <div v-html="$md.render(textPreview)"></div>
-      </template>
+            <template lang="md">
+              <div v-html="$md.render(textPreview)"></div>
+            </template>
+        </div>
     </div>
-  </div>
-</template>
+  </template>
   
 <script>
 export default {
@@ -35,7 +35,10 @@ export default {
       windowWidth: 0
     }
   },
-  async created() {
+  async mounted() {
+    window.addEventListener("resize", this.resizeListener)
+    this.resizeListener()
+
     this.altImg = 'Imagen de "' + this.title + '"'
 
     if (this.windowWidth >= 770) {
@@ -71,10 +74,6 @@ export default {
     }
     else
       this.textPreview = this.text
-  },
-  mounted() {
-    window.addEventListener("resize", this.resizeListener)
-    this.resizeListener()
   },
   methods: {
     resizeListener() {
