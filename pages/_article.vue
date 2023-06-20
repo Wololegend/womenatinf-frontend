@@ -5,7 +5,7 @@
         v-if="post.attributes.media.data !== null"
         :src="'http://localhost:1337' + post.attributes.media.data[0].attributes.url" />
 
-      <h1 class="title overText"> {{ title }} </h1>
+      <h1 class="title overText"  :style="windowWidth >= 770 ? 'top: 60%; left: 9%;' : 'top: 40%; left: 10%; right: 10%;'"> {{ title }} </h1>
     </div>
 
     <div class="body tile is-parent mb-5">
@@ -193,8 +193,6 @@ export default {
 .overText {
   position: absolute;
   z-index: 3;
-  top: 60%;
-  left: 5%;
   background-color: #f0eff4;
   color: #121212
 }
