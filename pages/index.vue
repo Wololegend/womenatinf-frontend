@@ -9,61 +9,107 @@
       </article>
     </div>
 
+    <div class="control tile is-parent is-8">
+      <input class="input tile is-child" placeholder="Busca aquí por palabras clave o títulos..." type="text" style="background-color:#32576e; color: #fff; border-radius: 5px">
+    </div>
+
+    <div class="tile is-parent is-4">
+      <button class="tile is-child hoverMain" style="background-color: #bdd0db; border-width: 0; border-radius: 5px;">
+        <font-awesome-icon :icon="['fas', 'magnifying-glass']" style="font-size: large;"></font-awesome-icon>
+      </button>
+    </div>
+
+
     <div class="tile is-vertical is-8">
       <div class="tile is-parent">
         <article v-if="popular.length > 0" class="tile is-child notification customMainTile">
-          <div :class="windowWidth < 770 ? 'is-vcentered my-2 container has-text-centered' : 'is-vcentered my-2 container'">
+          <div
+            :class="windowWidth < 770 ? 'is-vcentered my-2 container has-text-centered' : 'is-vcentered my-2 container'">
             <nuxt-link to="/popular/1" style="text-decoration: none">
               <h2 class="title mb-5"> Proyectos destacados </h2>
             </nuxt-link>
 
-            <hr :style="windowWidth < 770 ? 'margin: 0 auto 2rem 2%' : 'margin: 0 auto 2rem auto'" class="betweenTitleMain">
+            <hr :style="windowWidth < 770 ? 'margin: 0 auto 2rem 2%' : 'margin: 0 auto 2rem auto'"
+              class="betweenTitleMain">
 
             <nuxt-link class="nuxtLinkDecoration" :to="`/${popular[0].url}`">
-              <short-post :class="windowWidth < 770 ? 'hoverMain' : 'ml-3 hoverMain'" :img="popular[0].attributes.media.data"
-              :title="popular[0].attributes.titulo" :text="popular[0].attributes.cuerpo"></short-post>
+              <short-post :class="windowWidth < 770 ? 'hoverMain' : 'ml-3 hoverMain'"
+                :img="popular[0].attributes.media.data" :title="popular[0].attributes.titulo"
+                :text="popular[0].attributes.cuerpo"></short-post>
             </nuxt-link>
 
-            <hr class="betweenPostsMain is-centered" v-if="popular.length > 1">
+            <hr :style="windowWidth < 770 ? 'margin: 1rem auto 2rem 2%' : 'margin: 1rem auto 2rem auto'"
+              class="betweenPostsMain is-centered" v-if="popular.length > 1">
 
             <nuxt-link class="nuxtLinkDecoration" :to="`/${popular[1].url}`">
-              <short-post class="ml-3 mb-1 hoverMain" v-if="popular.length > 1"
-                :img="popular[1].attributes.media.data"
-                :title="popular[1].attributes.titulo" :text="popular[1].attributes.cuerpo"></short-post>
+              <short-post :class="windowWidth < 770 ? 'hoverMain' : 'ml-3 mb-1 hoverMain'" v-if="popular.length > 1"
+                :img="popular[1].attributes.media.data" :title="popular[1].attributes.titulo"
+                :text="popular[1].attributes.cuerpo"></short-post>
             </nuxt-link>
           </div>
         </article>
       </div>
+
+      <div v-if="windowWidth < 770" class="tile is-parent">
+        <article v-if="rest.length > 0" class="tile is-child notification customSideTile">
+          <div class="content">
+            <div class="is-vcentered mt-3 container has-text-centered">
+              <nuxt-link to="/more/1" style="text-decoration: none">
+                <h2 class="title mb-5"> Más iniciativas </h2>
+              </nuxt-link>
+
+              <hr class="betweenTitleSide">
+
+              <div class="tile is-ancestor">
+                <nuxt-link class="nuxtLinkDecoration tile is-parent" :to="`/${rest[0].url}`">
+                  <short-post class="ml-1 hoverMain tile is-child is-3" :img="rest[0].attributes.media.data"
+                    :title="rest[0].attributes.titulo" :text="rest[0].attributes.cuerpo" size="small"></short-post>
+                </nuxt-link>
+
+                <nuxt-link class="nuxtLinkDecoration tile is-parent" :to="`/${rest[1].url}`">
+                  <short-post class="ml-1 hoverMain tile is-child is-3" :img="rest[1].attributes.media.data"
+                    :title="rest[1].attributes.titulo" :text="rest[1].attributes.cuerpo" size="small"></short-post>
+                </nuxt-link>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
       <div class="tile is-parent">
         <article v-if="local.length > 0" class="tile is-child notification customMainTile">
-          <div class="is-vcentered my-2 container">
+          <div
+            :class="windowWidth < 770 ? 'is-vcentered my-2 container has-text-centered' : 'is-vcentered my-2 container'">
             <nuxt-link to="/local/1" style="text-decoration: none">
               <h2 class="title mb-5"> Proyectos locales </h2>
             </nuxt-link>
 
-            <hr class="betweenTitleMain">
+            <hr :style="windowWidth < 770 ? 'margin: 0 auto 2rem 2%' : 'margin: 0 auto 2rem auto'"
+              class="betweenTitleMain">
 
             <nuxt-link class="nuxtLinkDecoration" :to="`/${local[0].url}`">
-              <short-post class="ml-3 hoverMain" :img="local[0].attributes.media.data"
-                :title="local[0].attributes.titulo" :text="local[0].attributes.cuerpo"></short-post>
+              <short-post :class="windowWidth < 770 ? 'hoverMain' : 'ml-3 hoverMain'"
+                :img="local[0].attributes.media.data" :title="local[0].attributes.titulo"
+                :text="local[0].attributes.cuerpo"></short-post>
             </nuxt-link>
 
-            <hr class="betweenPostsMain is-centered" v-if="local.length > 1">
+            <hr :style="windowWidth < 770 ? 'margin: 1rem auto 2rem 2%' : 'margin: 1rem auto 2rem auto'"
+              class="betweenPostsMain is-centered" v-if="popular.length > 1">
 
             <nuxt-link class="nuxtLinkDecoration" :to="`/${local[1].url}`">
-              <short-post class="ml-3 mb-1 hoverMain" v-if="local.length > 1"
-                :img="local[1].attributes.media.data"
-                :title="local[1].attributes.titulo" :text="local[1].attributes.cuerpo"></short-post>
+              <short-post :class="windowWidth < 770 ? 'hoverMain' : 'ml-3 mb-1 hoverMain'" v-if="local.length > 1"
+                :img="local[1].attributes.media.data" :title="local[1].attributes.titulo"
+                :text="local[1].attributes.cuerpo"></short-post>
             </nuxt-link>
-            
+
           </div>
         </article>
       </div>
     </div>
-    <div class="tile is-parent">
+    <div v-if="windowWidth >= 770" class="tile is-parent">
       <article v-if="rest.length > 0" class="tile is-child notification customSideTile">
         <div class="content">
-          <div class="is-vcentered container mt-3">
+          <div class="is-vcentered mt-3 container">
             <nuxt-link to="/more/1" style="text-decoration: none">
               <h2 class="title mb-5"> Más iniciativas </h2>
             </nuxt-link>
@@ -72,8 +118,8 @@
 
             <template v-for="(post, index) in this.rest">
               <nuxt-link class="nuxtLinkDecoration" :to="`/${post.url}`">
-                <short-post class="hoverSide ml-1" :img="post.attributes.media.data"
-                  :title="post.attributes.titulo" :text="post.attributes.cuerpo" size="small"></short-post>
+                <short-post class="ml-1 hoverMain" :img="post.attributes.media.data" :title="post.attributes.titulo"
+                  :text="post.attributes.cuerpo" size="small"></short-post>
               </nuxt-link>
 
               <hr class="betweenPostsSide is-centered" v-if="index < 4">
@@ -88,6 +134,7 @@
 <script>
 import axios from 'axios'
 import shortPost from '../components/shortPost.vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 export default {
   name: 'IndexPage',
@@ -195,11 +242,10 @@ export default {
 
 
 .betweenPostsMain {
-  width: 96%;
+  width: 100%;
   border-color: #32576e;
   background-color: #32576e;
   height: 1px;
-  margin: 1rem auto 2rem auto
 }
 
 .betweenTitleMain {
@@ -226,14 +272,35 @@ export default {
 }
 
 .hoverMain:hover {
-  background-color: #d4e0e7;
+  background-color: #d4e0e7 !important;
 }
 
 .hoverSide:hover {
   background-color: #336381;
 }
 
+button {
+  cursor: pointer !important
+}
+
 .nuxtLinkDecoration {
   text-decoration: none !important;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #c7c4d1;
+  opacity: 1;
+  /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #fff;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #fff;
 }
 </style>

@@ -29,6 +29,7 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    '@nuxtjs/fontawesome'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -49,6 +50,20 @@ export default {
       'markdown-it-attrs'
     ]
   },
+
+  fontawesome: {
+    icons: {
+      solid: ['faEnvelope','faEnvelopeOpen','faSearch','faEdit',
+              'faArrowLeft','faEyeSlash','faEye','faChevronDown',
+              'faUpload','faBell','faCheck','faInfoCircle','faTrashAlt',
+              'faClipboard','faCircle','faClipboardCheck','faArrowRight',
+              'faChartPie','faChartBar','faChartArea','faPlusSquare',
+              'faPlusCircle','faBan', 'faComment', 'faCog', 'faMagnifyingGlass'],
+      regular: ['faImage'],
+      brands: ['faFacebookSquare','faLinkedin','faTwitterSquare']
+    }
+  },
+  
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
