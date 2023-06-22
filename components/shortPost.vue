@@ -6,15 +6,15 @@
       <img v-else src="../assets/women@infLogoPequeño.png" :alt="altImg">
     </div>
 
-        <div :class="txtClass" :style="widthText">
-            <h3 :class="titleClass" :style="colorTitle"> {{ title }} </h3>
+    <div :class="txtClass" :style="widthText">
+      <h3 :class="titleClass" :style="colorTitle"> {{ title }} </h3>
 
-            <template lang="md">
-              <div v-html="$md.render(textPreview)"></div>
-            </template>
-        </div>
+      <template lang="md">
+        <div v-html="$md.render(textPreview)"></div>
+      </template>
     </div>
-  </template>
+  </div>
+</template>
   
 <script>
 export default {
@@ -46,7 +46,7 @@ export default {
         this.imgClass = 'column is-half ml-4 mr-2'
         this.txtClass = 'block column is-half'
         this.titleClass = 'mt-3 is-size-5',
-        this.colorTitle = 'color: #fff'
+          this.colorTitle = 'color: #fff'
         this.widthText = 'width: 40%'
         this.maxCharsPerLine = 50
       }
@@ -54,17 +54,10 @@ export default {
         this.imgClass = 'column is-3 ml-2 mr-2'
         this.txtClass = 'block column is-9 mr-2'
         this.titleClass = 'title mt-3 is-size-4',
-        this.colorTitle = 'color: #121212'
+          this.colorTitle = 'color: #121212'
         this.widthText = 'width: 70%'
         this.maxCharsPerLine = 500
       }
-    }
-    else {
-      this.imgClass = 'column is-full'
-      this.txtClass = 'block column is-12 is-flex is-flex-direction-column is-justify-content-center is-align-items-center'
-      this.ratioImg = '1by1'
-      this.titleClass = 'title mt-3 has-text-centered'
-      this.widthText = 'width: 100%'
     }
 
     if (this.text.length > this.maxCharsPerLine) {
@@ -79,6 +72,18 @@ export default {
     resizeListener() {
       this.windowHeight = window.innerHeight * 0.3;
       this.windowWidth = window.innerWidth;
+
+      if (this.windowWidth < 770) {
+        this.imgClass = 'column is-full is-flex is-flex-direction-column is-justify-content-center is-align-items-center'
+        this.txtClass = 'block column is-12 is-flex is-flex-direction-column is-justify-content-center is-align-items-center'
+        this.ratioImg = '1by1'
+        this.colorTitle = 'font-size: 22px;'
+        this.titleClass = 'title mt-3 has-text-centered'
+        this.widthText = 'width: 100%'
+
+        if (this.size == 'small')
+          this.colorTitle += ' color: #fff'
+      }
     }
   }
 }
