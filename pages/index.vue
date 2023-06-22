@@ -10,15 +10,14 @@
     </div>
 
     <div class="control tile is-parent is-8">
-      <input class="input tile is-child" placeholder="Busca aquí por palabras clave o títulos..." type="text" style="background-color:#32576e; color: #fff; border-radius: 5px">
+      <input v-model="searchTerms" @keyup.enter="searchPosts(searchTerms)" class="input tile is-child" placeholder="Busca aquí por palabras clave o títulos..." type="text" style="background-color:#32576e; color: #fff; border-radius: 5px">
     </div>
 
     <div class="tile is-parent is-4">
-      <button class="tile is-child hoverMain" style="background-color: #bdd0db; border-width: 0; border-radius: 5px;">
+      <button @click="searchPosts(searchTerms)" class="tile is-child hoverMain" style="background-color: #bdd0db; border-width: 0; border-radius: 5px;">
         <font-awesome-icon :icon="['fas', 'magnifying-glass']" style="font-size: large;"></font-awesome-icon>
       </button>
     </div>
-
 
     <div class="tile is-vertical is-8">
       <div class="tile is-parent">
@@ -147,7 +146,8 @@ export default {
       rest: [],
       boolean: false,
       windowHeight: 0,
-      windowWidth: 0
+      windowWidth: 0,
+      searchTerms: ''
     }
   },
   async created() {
@@ -214,6 +214,11 @@ export default {
     resizeListener() {
       this.windowHeight = window.innerHeight * 0.3;
       this.windowWidth = window.innerWidth;
+    },
+
+    searchPosts(searchTerms) {
+      if (searchTerms != '')
+        this.$router.push(`/search/${searchTerms}`)
     }
   }
 }
