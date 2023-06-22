@@ -81,6 +81,7 @@ export default {
       const local = routes.find(route => route.name === 'local');
       const more = routes.find(route => route.name === 'more');
       const article = routes.find(route => route.name === 'article');
+      const search = routes.find(route => route.name === 'search');
 
       if (popular) {
         popular.path = '/popular/:pages';
@@ -100,6 +101,11 @@ export default {
       if (article) {
         article.path = '/:article-:id';
         article.component = resolve(__dirname, 'pages/_article.vue');
+      }
+
+      if (search) {
+        search.path = '/search/:searchTerms';
+        search.component = resolve(__dirname, 'pages/search.vue');
       }
     }
   }
