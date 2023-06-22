@@ -7,6 +7,21 @@
       </article>
     </div>
 
+    <div class="tile is-ancestor">
+      <div class="control tile is-parent is-8">
+        <input v-model="searchTerms" @keyup.enter="searchPosts(searchTerms)" class="input tile is-child"
+          placeholder="Busca aquí por palabras clave o títulos..." type="text"
+          style="background-color:#32576e; color: #fff; border-radius: 5px">
+      </div>
+
+      <div class="tile is-parent is-4">
+        <button @click="searchPosts(searchTerms)" class="tile is-child hoverMain"
+          style="background-color: #bdd0db; border-width: 0; border-radius: 5px;">
+          <font-awesome-icon :icon="['fas', 'magnifying-glass']" style="font-size: large;"></font-awesome-icon>
+        </button>
+      </div>
+    </div>
+
     <div class="body mb-5">
       <template v-for="(post, index) in paginatedPosts[$route.params.pages - 1]">
         <nuxt-link style="text-decoration: none; color: #121212" :to="`/${post.attributes.titulo}-${post.id}`">
@@ -30,7 +45,7 @@
       <ul class="pagination-list is-flex is-justify-content-center">
         <li>
           <nuxt-link v-if="$route.params.pages > 1" :to="`/more/${$route.params.pages - 1}`" class="pagination-previous">
-            < </nuxt-link>
+            &lt </nuxt-link>
         </li>
         <li v-for="(item, index) in paginatedPosts">
           <nuxt-link v-if="(index + 1) == $route.params.pages" :to="`/more/${index * 1 + 1}`"
@@ -60,6 +75,7 @@ export default {
       pages: 0,
       posts: [],
       paginatedPosts: [],
+      searchTerms: ''
     }
   },
   async created() {
@@ -110,6 +126,11 @@ export default {
       if (tmpArray.length > 0) {
         this.paginatedPosts.push(tmpArray);
       }
+    },
+
+    searchPosts(searchTerms) {
+      if (searchTerms != '')
+        this.$router.push(`/search/${searchTerms}`)
     }
   }
 }
@@ -143,10 +164,35 @@ export default {
 }
 
 .hoverMain:hover {
-  background-color: #d4e0e7;
+  background-color: #d4e0e7 !important;
 }
 
 .is-current {
   background-color: #32576e
+}
+
+button {
+  cursor: pointer !important
+}
+
+.nuxtLinkDecoration {
+  text-decoration: none !important;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #c7c4d1;
+  opacity: 1;
+  /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #fff;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #fff;
 }
 </style>

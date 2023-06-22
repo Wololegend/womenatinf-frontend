@@ -181,22 +181,6 @@ export default {
 
             resolve()
           }).then(() => {
-            // this.posts.forEach(post => {
-            //   switch (post.attributes.Tipos) {
-            //     case "Destacados":
-            //       this.popular.push(post)
-            //     break;
-
-            //     case "Locales":
-            //       this.local.push(post)
-            //     break;
-
-            //     case "No destacados":
-            //       this.rest.push(post)
-            //     break;
-            //   }
-            // })         
-
             this.boolean = true
 
             loadingComponent.close()
@@ -244,7 +228,6 @@ export default {
   border-radius: 5px;
   height: 7rem
 }
-
 
 .betweenPostsMain {
   width: 100%;
