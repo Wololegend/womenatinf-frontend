@@ -1,6 +1,5 @@
 <template>
-    <h1>holaquetal</h1>
-    <!-- <div v-if="boolean">
+    <div v-if="boolean">
       <div class="tile is-parent is-12 my-5 titleTile">
         <article style="background-color: transparent"
           class="tile is-child notification is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
@@ -31,7 +30,7 @@
         <ul class="pagination-list is-flex is-justify-content-center">
           <li>
             <nuxt-link v-if="$route.params.pages > 1" :to="`/popular/${$route.params.pages - 1}`" class="pagination-previous">
-              < </nuxt-link>
+              &lt </nuxt-link>
           </li>
           <li v-for="(item, index) in paginatedPosts">
             <nuxt-link v-if="(index + 1) == $route.params.pages" :to="`/popular/${index * 1 + 1}`"
@@ -46,7 +45,7 @@
           </li>
         </ul>
       </nav>
-    </div> -->
+    </div>
   </template>
       
   <script>
@@ -61,6 +60,8 @@
         postsPerPage: 3,
         pages: 0,
         posts: [],
+        allPosts: [],
+        keyWordsPosts: [],
         paginatedPosts: [],
       }
     },
@@ -69,30 +70,56 @@
         const loadingComponent = this.$buefy.loading.open({
           container: null
         })
-  
-        await axios.get('http://localhost:1337/api/publicaciones?populate=media&filters[Tipos][$eq]=Destacados')
+
+        // let tagString = 'tag1,tag2, tag3,tag4'
+        // tagString = tagString.replace(/\s/g, "")
+        // console.log(tagString.split(/,/))
+
+        await axios.get('http://localhost:1337/api/publicaciones?populate=media')
           .then(response => {
-            new Promise((resolve, reject) => {
-              this.posts = response.data.data
-  
-              this.posts.sort((item1, item2) => {
-                return item2.attributes.publishedAt - item1.attributes.publishedAt
+            this.allPosts = response.data.data
+
+            this.allPosts.forEach(post => {
+              let tags = []
+              let tagsTmp = ''
+              let body = []
+
+              tagsTmp = post.attributes.etiquetas.replace(/\s/g, "")
+
+              tags = tagsTmp.split(/,/)
+              body = post.attributes.cuerpo.split(/\s+/)
+
+              this.keyWordsPosts.push({
+                id: post.id,
+                tags: tags,
+                bodyKeys: body
               })
-  
-              resolve()
-            }).then(() => {
-              this.pages = Math.ceil(this.posts.length / this.postsPerPage)
-  
-              if (this.pages > 1) {
-                this.paginatePosts()
-              }
-              else
-                this.paginatedPosts = [[...this.posts]]
-  
-              this.boolean = true
-  
-              loadingComponent.close()
             })
+
+            console.log(this.keyWordsPosts)
+          })
+
+        await axios.get('http://localhost:1337/api/publicaciones?populate=media&filters[titulo][$contains]=' + this.$route.params.searchTerms)
+          .then(response => {
+            this.posts.push(...response.data.data)
+
+            console.log(this.posts)
+
+            this.posts.sort((item1, item2) => {
+              return item2.attributes.publishedAt - item1.attributes.publishedAt
+            })
+
+            this.pages = Math.ceil(this.posts.length / this.postsPerPage)
+
+            if (this.pages > 1) {
+              this.paginatePosts()
+            }
+            else
+              this.paginatedPosts = [[...this.posts]]
+
+            this.boolean = true
+
+            loadingComponent.close()
           })
       } catch (error) {
         console.log(error)
