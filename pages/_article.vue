@@ -63,7 +63,7 @@
             </div>
           </template>
 
-          <template v-else-if="!('imgUrl' in body[index - 1]) && !item.title" lang="md">
+          <template v-else-if="!item.render" lang="md">
             <div style="display: inline-block; margin-left: 5%; margin-right: 9%" v-html="$md.render(item.txt)"></div>
             <br>
           </template>
@@ -114,9 +114,9 @@ export default {
 
         bodyTmp.forEach((item) => {
           if (item[0] == '#')
-            this.body.push({ txt: item.substring(item.indexOf("# ") + 2), title: true })
+            this.body.push({ txt: item.substring(item.indexOf("# ") + 2), title: true, render: true })
           else
-            this.body.push({ txt: item, title: false })
+            this.body.push({ txt: item, title: false, render: true })
         })
 
         this.body = this.body.filter((item) => item.txt !== "")
@@ -130,10 +130,14 @@ export default {
               if (this.body[i].title) {
                 this.body[i + 1].imgUrl = 'http://localhost:1337' + this.post.attributes.media.data[imgIndex % this.post.attributes.media.data.length].attributes.url
                 this.body[i + 1].imgPos = pos
+                
+                if (i < this.body.length - 3)
+                  this.body[i + 2].render = false
               }
               else {
                 this.body[i].imgUrl = 'http://localhost:1337' + this.post.attributes.media.data[imgIndex % this.post.attributes.media.data.length].attributes.url
                 this.body[i].imgPos = pos
+                this.body[i + 1].render = false
               }
 
               pos = !pos
