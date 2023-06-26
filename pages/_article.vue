@@ -63,9 +63,8 @@
             </div>
           </template>
 
-          <template v-else-if="!item.render" lang="md">
-            <div style="display: inline-block; margin-left: 5%; margin-right: 9%" v-html="$md.render(item.txt)"></div>
-            <br>
+          <template v-else-if="item.render" lang="md">
+            <div style="display: inline-block; margin-left: 5%; margin-right: 9%; margin-bottom: 2%" v-html="$md.render(item.txt)"></div>
           </template>
         </template>
 
