@@ -25,7 +25,7 @@
 
             <p class="subtitle"> Inspira a otras informáticas </p>
           </div>
-          <!-- <font-awesome-icon class="column is-2 fa-4x" :icon="['fas', 'comment']" :title="$t('Suggestions')"/> -->
+          <font-awesome-icon class="column is-2 fa-5x" :icon="['fas', 'comment']"/>
         </div>
         <div class="content mx-3 mb-5">
           <br>
@@ -61,7 +61,7 @@
       </section>
 
       <!-- FORM -->
-      <section class="column is-half notification form bgForm mt-5">
+      <section style="height: 100%" class="column is-half notification form bgForm mt-5">
         <p
           class="title mt-5 mx-3"
           style="font-size: 25px"
@@ -161,38 +161,8 @@
             </p>
           </div>
 
-          <!-- <div class="field mb-5 mx-3">
-              <b-field class="file">
-                <b-upload v-model="files" multiple expanded>
-                  <a class="button customButton is-fullwidth">
-                    <b-icon icon="upload"></b-icon>
-                    <span> Haz click para subir tus archivos </span>
-                  </a>
-                </b-upload>
-              </b-field>
-              <b-field>
-                <b-upload v-model="files" multiple drag-drop expanded>
-                  <section class="section">
-                    <div class="content has-text-centered">
-                      <p>
-                        <b-icon icon="upload" size="is-large"></b-icon>
-                      </p>
-                      <p>Arrastra aquí tus archivos para subirlos</p>
-                    </div>
-                  </section>
-                </b-upload>
-              </b-field>
-
-              <div class="tags">
-                <span v-for="(file, index) in files" :key="index" class="tag customTags">
-                  {{ file.name }}
-                  <button class="delete is-small" type="button" @click="deleteDropFile(index)"></button>
-                </span>
-              </div>
-            </div> -->
-
           <div class="field mx-3">
-            <button class="button is-medium mt-4">
+            <button class="button is-medium mt-4 mb-5">
               Enviar
             </button>
           </div>
