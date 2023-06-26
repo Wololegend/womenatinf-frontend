@@ -124,8 +124,16 @@ export default {
           let pos = true
           let imgIndex = 0
 
+          let num = 0
+
+          if (this.body.length < 6)
+            num = 2
+          else
+            num = 3
+
+
           for (let i = 0; i < this.body.length; i++) {
-            if (i > 1 && i % 3 == 0 && i < this.body.length - 2) {
+            if (i > 1 && i % num == 0 && i < this.body.length - 2) {
               if (this.body[i].title) {
                 this.body[i + 1].imgUrl = 'http://localhost:1337' + this.post.attributes.media.data[imgIndex % this.post.attributes.media.data.length].attributes.url
                 this.body[i + 1].imgPos = pos
