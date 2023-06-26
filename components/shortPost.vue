@@ -24,6 +24,7 @@ export default {
     return {
       textPreview: '',
       maxCharsPerLine: 130,
+      maxCharsTitleShort: 22,
       imgClass: 'column is-3',
       txtClass: 'block column is-11 mx-5',
       ratioImg: '1by1',
@@ -49,12 +50,19 @@ export default {
           this.colorTitle = 'color: #fff'
         this.widthText = 'width: 40%'
         this.maxCharsPerLine = 50
+
+        if (this.title.length > this.maxCharsTitleShort) {
+          this.title = this.title.slice(0, this.maxCharsTitleShort - 3)
+
+          this.title += '...'
+        }
+
       }
       else if (this.size == 'big') {
         this.imgClass = 'column is-3 ml-2 mr-2'
         this.txtClass = 'block column is-9 mr-2'
-        this.titleClass = 'title mt-3 is-size-4',
-          this.colorTitle = 'color: #121212'
+        this.titleClass = 'title mt-3 is-size-4'
+        this.colorTitle = 'color: #121212'
         this.widthText = 'width: 70%'
         this.maxCharsPerLine = 500
       }
