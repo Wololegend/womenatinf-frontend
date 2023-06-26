@@ -134,7 +134,7 @@ export default {
 
     searchPosts(searchTerms) {
       if (searchTerms != '')
-        this.$router.push(`/search/${searchTerms}`)
+        this.$router.push(`/search/${searchTerms}/1`)
     }
   }
 }

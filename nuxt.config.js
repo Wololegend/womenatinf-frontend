@@ -104,7 +104,7 @@ export default {
       }
 
       if (search) {
-        search.path = '/search/:searchTerms';
+        search.path = '/search/:searchTerms/:pages';
         search.component = resolve(__dirname, 'pages/search.vue');
       }
     }
