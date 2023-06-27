@@ -1,5 +1,5 @@
 <template>
-  <div v-if="boolean" class="tile is-ancestor is-flex-wrap-wrap">
+  <div v-if="boolean" class="tile is-ancestor is-flex-wrap-wrap" :style="windowWidth < 770 ? 'margin-left: 5%; margin-right: 5%' : ''">
     <div class="header tile is-parent is-12 mt-5 has-text-centered" :style="styleHeader">
       <img class="bgImage tile is-child is-inline-block" :style="styleHeaderImg"
         v-if="post.attributes.media.data !== null"
@@ -169,8 +169,14 @@ export default {
 
       // console.log(this.windowWidth)
 
+      if (this.windowWidth < 770) 
+        this.styleHeaderImg = 'width: 130%; height: 130%'
+      else {
+        this.styleHeaderImg += Math.round(this.windowWidth).toString() + 'px'
+      }
+      
       this.styleHeader += Math.round(this.windowHeight).toString() + 'px'
-      this.styleHeaderImg += Math.round(this.windowWidth).toString() + 'px'
+
 
       let underLimit = 1215
       let overLimit = 1400
@@ -212,9 +218,9 @@ export default {
   position: relative;
   overflow: hidden;
   border-radius: 5px 5px 0 0;
-  background-image: url("../assets/women@infLogo.png");
+  /* background-image: url("../assets/women@infLogo.png");
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: 100%; */
 }
 
 .body {
