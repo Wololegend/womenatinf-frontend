@@ -1,31 +1,32 @@
 <template>
   <div v-if="boolean">
-    <div class="tile is-parent is-12 my-5 titleTile">
-      <article style="background-color: transparent"
-        class="tile is-child notification is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
-        <h1 class="title" style=""> Búsqueda </h1>
+    <div class="tile is-parent is-12 titleTile mt-3 mb-5 is-flex is-flex-direction-column is-justify-content-center is-align-items-center has-text-centered"
+    :style="windowWidth < 770 ? 'margin-left: 5%; margin-right: 5%' : ''">
+      <article class="tile is-child notification " style="background-color:  transparent;">
+        <h1 class="title"> Proyectos destacados </h1>
       </article>
     </div>
 
     <div class="tile is-ancestor">
-      <div class="control tile is-parent is-8">
-        <input v-model="searchBarTerms" @keyup.enter="searchPosts(searchBarTerms)" class="input tile is-child"
+      <div class="control tile is-parent is-8 pb-2" :style="windowWidth < 770 ? 'margin-left: 5%; margin-right: 5%' : ''">
+        <input v-model="searchBarTerms" @keyup.enter="searchPosts(searchTerms)" class="input tile is-child"
           placeholder="Busca aquí por palabras clave o títulos..." type="text"
           style="background-color:#32576e; color: #fff; border-radius: 5px">
       </div>
 
-      <div class="tile is-parent is-4">
-        <button @click="searchPosts(searchBarTerms)" class="tile is-child hoverMain"
-          style="background-color: #bdd0db; border-width: 0; border-radius: 5px;">
+      <div class="tile is-parent is-4 pt-0" :style="windowWidth < 770 ? 'margin-left: 5%; margin-right: 5%' : ''">
+        <button @click="searchPosts(searchTerms)" class="tile is-child hoverMain"
+          style="background-color: #bdd0db; border-width: 0; border-radius: 5px;"
+          :style="windowWidth < 770 ? 'background-color: #bdd0db; border-width: 0; border-radius: 5px; width: 100%; height: 2rem' : 'background-color: #bdd0db; border-width: 0; border-radius: 5px; width: 100%'">
           <font-awesome-icon :icon="['fas', 'magnifying-glass']" style="font-size: large;"></font-awesome-icon>
         </button>
       </div>
     </div>
 
-    <div class="body mb-5">
+    <div class="body mb-5" :style="windowWidth < 770 ? 'margin-left: 5%; margin-right: 5%' : ''">
       <template v-for="(post, index) in paginatedPosts[$route.params.pages - 1]">
         <nuxt-link style="text-decoration: none; color: #121212" :to="`/${post.attributes.titulo}-${post.id}`">
-          <div class="mx-5" style="overflow: hidden">
+          <div class="ml-2 mr-5" style="overflow: hidden">
             <short-post v-if="index == 0" class="hoverMain mt-5 mb-1" :img="post.attributes.media.data"
               :title="post.attributes.titulo" :text="post.attributes.cuerpo" size="big"></short-post>
 
@@ -79,16 +80,24 @@ export default {
       allPosts: [],
       paginatedPosts: [],
       searchTerms: [],
-      searchBarTerms: ''
+      searchBarTerms: '',
+      windowHeight: 0,
+      windowWidth: 0,
     }
   },
   created() {
+    this.searchBarTerms = this.$route.params.searchTerms
+    console.log("🚀 ~ file: search.vue:90 ~ created ~ this.searchBarTerms:", this.searchBarTerms)
+    
+  },
+  mounted() {
+    window.addEventListener("resize", this.resizeListener)
+    this.resizeListener()
+
     try {
       const loadingComponent = this.$buefy.loading.open({
         container: null
       })
-
-      this.searchBarTerms = this.$route.params.searchTerms
       
       let searchTermsTmp = this.$route.params.searchTerms.split(" ")
 
@@ -160,6 +169,11 @@ export default {
     }
   },
   methods: {
+    resizeListener() {
+      this.windowHeight = window.innerHeight * 0.3;
+      this.windowWidth = window.innerWidth;
+    },
+    
     paginatePosts(allPosts) {
       var tmpArray = [];
 
