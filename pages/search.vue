@@ -3,7 +3,7 @@
     <div class="tile is-parent is-12 titleTile mt-3 mb-5 is-flex is-flex-direction-column is-justify-content-center is-align-items-center has-text-centered"
     :style="windowWidth < 770 ? 'margin-left: 5%; margin-right: 5%' : ''">
       <article class="tile is-child notification " style="background-color:  transparent;">
-        <h1 class="title"> Proyectos destacados </h1>
+        <h1 class="title"> Búsqueda </h1>
       </article>
     </div>
 
