@@ -99,8 +99,6 @@ export default {
       .then((response) => {
         this.post = response.data.data[0]
 
-        console.log(this.post)
-
         window.addEventListener("resize", this.resizeListener)
         this.resizeListener()
 
@@ -108,8 +106,6 @@ export default {
 
         this.title = this.post.attributes.titulo
         bodyTmp = this.post.attributes.cuerpo.split(/\r?\n/)
-
-        console.log(bodyTmp)
 
         bodyTmp.forEach((item) => {
           if (item[0] == '#')
@@ -157,17 +153,12 @@ export default {
             }
           }
         }
-
-        console.log(this.body)
-
       })
   },
   methods: {
     resizeListener() {
       this.windowHeight = window.innerHeight * 0.3;
       this.windowWidth = window.innerWidth;
-
-      // console.log(this.windowWidth)
 
       if (this.windowWidth < 770) 
         this.styleHeaderImg = 'width: 130%; height: 130%'
