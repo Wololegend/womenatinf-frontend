@@ -1,11 +1,13 @@
 <template>
-  <div v-if="boolean">
+  <div v-if="boolean">    
     <div class="tile is-parent is-12 titleTile mt-3 mb-5 is-flex is-flex-direction-column is-justify-content-center is-align-items-center has-text-centered"
     :style="windowWidth < 770 ? 'margin-left: 5%; margin-right: 5%' : ''">
       <article class="tile is-child notification " style="background-color:  transparent;">
         <h1 class="title"> Búsqueda </h1>
       </article>
     </div>
+
+
 
     <div class="tile is-ancestor">
       <div class="control tile is-parent is-8 pb-2" :style="windowWidth < 770 ? 'margin-left: 5%; margin-right: 5%' : ''">
@@ -21,6 +23,10 @@
           <font-awesome-icon :icon="['fas', 'magnifying-glass']" style="font-size: large;"></font-awesome-icon>
         </button>
       </div>
+    </div>
+
+    <div class="is-flex is-flex-direction-column is-justify-content-center is-align-items-center has-text-centered">
+      <h1 class="subtitle" v-if="allPosts.length == 0"> Lo sentimos, no hemos encontrado ningún artículo relacionado con tu búsqueda. </h1>
     </div>
 
     <div class="body mb-5" :style="windowWidth < 770 ? 'margin-left: 5%; margin-right: 5%' : ''">
