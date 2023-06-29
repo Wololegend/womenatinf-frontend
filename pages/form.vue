@@ -5,7 +5,7 @@
   <div class="columns is-multiline is-centered mt-5">
     
     <!-- TITLE -->
-    <section class="column is-12 titleTileBorder">
+    <section class="column is-12 titleTileBorder" :style="windowWidth < 770 ? 'margin-left: 5%; margin-right: 5%' : ''">
       <article class="tile is-child notification titleTile is-full has-text-centered">
         <h1 class="title is-inline-block my-0" style="  font-size: 35px !important;"> Te escuchamos </h1>
       </article>
@@ -13,7 +13,7 @@
 
     <!-- EXPLANATION -->
 
-      <section class="column is-half notification bgInfo info mt-5">
+      <section class="column is-half notification bgInfo info mt-5" :style="windowWidth < 770 ? 'margin-left: 5%; margin-right: 5%' : ''">
         <div class="mt-5 mx-0 columns is-multiline">
           <div class="column is-10">
             <p
@@ -61,7 +61,7 @@
       </section>
 
       <!-- FORM -->
-      <section style="height: 100%" class="column is-half notification form bgForm mt-5">
+      <section :style="windowWidth < 770 ? 'margin-left: 5%; margin-right: 5%' : ''" style="height: 100%" class="column is-half notification form bgForm mt-5">
         <p
           class="title mt-5 mx-3"
           style="font-size: 25px"
@@ -191,10 +191,21 @@ export default {
       email: '',
       name: '',
       description: '',
-      links: ''
+      links: '',
+      windowHeight: 0,
+      windowWidth: 0
     }
   },
+  mounted() {
+    window.addEventListener("resize", this.resizeListener)
+    this.resizeListener()
+  },
   methods: {
+    resizeListener() {
+      this.windowHeight = window.innerHeight * 0.3;
+      this.windowWidth = window.innerWidth;
+    },
+    
     async sendFormInfo() {
       const regex = /^[-A-Za-z0-9!#$%&'*+/=?^_`{|}~]+(?:\.[-A-Za-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[A-Za-z0-9](?:[-A-Za-z0-9]*[A-Za-z0-9])?\.)+[A-Za-z0-9](?:[-A-Za-z0-9]*[A-Za-z0-9])?/
 
