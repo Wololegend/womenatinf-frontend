@@ -258,8 +258,6 @@ export default {
 
                 else
                   this.paginatedPosts = [[...this.allPosts]]
-
-                console.log(this.paginatedPosts)
               })
             })
           })

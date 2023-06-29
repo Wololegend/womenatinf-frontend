@@ -418,7 +418,6 @@ export default {
           this.scoreGoogleSearches()
 
           this.googleSearchResults.forEach((search) => {
-            console.log(this.googleSearchResults)
             try {
               if ('snippet' in search) {
                 axios.post('http://localhost:1337/api/algoritmo-busquedas',
