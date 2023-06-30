@@ -11,13 +11,13 @@
 
     <div class="tile is-ancestor">
       <div class="control tile is-parent is-8 pb-2" :style="windowWidth < 770 ? 'margin-left: 5%; margin-right: 5%' : ''">
-        <input v-model="searchBarTerms" @keyup.enter="searchPosts(searchTerms)" class="input tile is-child"
+        <input v-model="searchBarTerms" @keyup.enter="searchPosts(searchBarTerms)" class="input tile is-child"
           placeholder="Busca aquí por palabras clave o títulos..." type="text"
           style="background-color:#32576e; color: #fff; border-radius: 5px">
       </div>
 
       <div :class="windowWidth < 770 ? 'tile is-parent is-4 pt-0' : 'tile is-parent is-4'" :style="windowWidth < 770 ? 'margin-left: 5%; margin-right: 5%' : ''">
-        <button @click="searchPosts(searchTerms)" class="tile is-child hoverMain"
+        <button @click="searchPosts(searchBarTerms)" class="tile is-child hoverMain"
           style="background-color: #bdd0db; border-width: 0; border-radius: 5px;"
           :style="windowWidth < 770 ? 'background-color: #bdd0db; border-width: 0; border-radius: 5px; width: 100%; height: 2rem' : 'background-color: #bdd0db; border-width: 0; border-radius: 5px; width: 100%; height: 2.5rem'">
           <font-awesome-icon :icon="['fas', 'magnifying-glass']" style="font-size: large;"></font-awesome-icon>
@@ -271,9 +271,9 @@ export default {
       })
     },
 
-    searchPosts(searchTerms) {
-      if (searchTerms != '')
-        this.$router.push(`/search/${searchTerms}/1`)
+    searchPosts(searchBarTerms) {
+      if (searchBarTerms != '')
+        this.$router.push(`/search/${searchBarTerms}/1`)
     }
   }
 }
