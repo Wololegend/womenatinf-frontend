@@ -53,14 +53,9 @@ export default {
 
   fontawesome: {
     icons: {
-      solid: ['faEnvelope','faEnvelopeOpen','faSearch','faEdit',
-              'faArrowLeft','faEyeSlash','faEye','faChevronDown',
-              'faUpload','faBell','faCheck','faInfoCircle','faTrashAlt',
-              'faClipboard','faCircle','faClipboardCheck','faArrowRight',
-              'faChartPie','faChartBar','faChartArea','faPlusSquare',
-              'faPlusCircle','faBan', 'faComment', 'faCog', 'faMagnifyingGlass'],
-      regular: ['faImage'],
-      brands: ['faFacebookSquare','faLinkedin','faTwitterSquare']
+      solid: ['faMagnifyingGlass', 'faBars', 'faXmark', 'faComment'],
+      regular: [],
+      brands: []
     }
   },
   
