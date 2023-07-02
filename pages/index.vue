@@ -337,7 +337,7 @@ export default {
       const loadingComponent = this.$buefy.loading.open({
         container: null
       })
-      await axios.get('http://localhost:1337/api/publicaciones?populate=media')
+      await axios.get(process.env.BACKEND_URL + '/api/publicaciones?populate=media')
         .then(response => {
           new Promise((resolve, reject) => {
             this.posts = response.data.data
@@ -392,7 +392,7 @@ export default {
       }
 
       try {
-        await axios.get('http://localhost:1337/api/fecha-hora-algoritmo',
+        await axios.get(process.env.BACKEND_URL + '/api/fecha-hora-algoritmo',
         ).then((response) => {
           serverDateTime = response.data.data.attributes.fechaHora
         })
@@ -421,7 +421,7 @@ export default {
           this.googleSearchResults.forEach((search) => {
             try {
               if ('snippet' in search) {
-                axios.post('http://localhost:1337/api/algoritmo-busquedas',
+                axios.post(process.env.BACKEND_URL + '/api/algoritmo-busquedas',
                   {
                     'data': {
                       'Titulo': search.title,
@@ -442,7 +442,7 @@ export default {
         })
 
         try {
-          await axios.put('http://localhost:1337/api/fecha-hora-algoritmo',
+          await axios.put(process.env.BACKEND_URL + '/api/fecha-hora-algoritmo',
             {
               'data': {
                 'fechaHora': updatedDateTime

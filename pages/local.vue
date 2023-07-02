@@ -87,7 +87,7 @@ export default {
         container: null
       })
 
-      await axios.get('http://localhost:1337/api/publicaciones?populate=media&filters[Tipos][$eq]=Locales')
+      await axios.get(process.env.BACKEND_URL + '/api/publicaciones?populate=media&filters[Tipos][$eq]=Locales')
         .then(response => {
           new Promise((resolve, reject) => {
             this.posts = response.data.data

@@ -226,7 +226,7 @@ export default {
 
       if (!this.correctEmailFormat && !this.correctDescriptionFormat && !this.correctLinksFormat) {
         try {
-          await axios.post('http://localhost:1337/api/propuestas',
+          await axios.post(process.env.BACKEND_URL + '/api/propuestas',
             {
               'data': {
                 'fecha': new Date(),
