@@ -51,9 +51,24 @@
             </div>
           </div>
 
-          <nuxt-link class="navbar-item navbarLink" to="/form">
+          <!-- <nuxt-link class="navbar-item navbarLink" to="/form">
             Te escuchamos
-          </nuxt-link>
+          </nuxt-link> -->
+
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link navbarLink">
+              Artículos e iniciativas
+            </a>
+
+            <div class="navbar-dropdown">
+              <nuxt-link class="navbar-item navbarLink" to="/">
+                Artículos
+              </nuxt-link>
+              <nuxt-link class="navbar-item navbarLink" to="/form">
+                Te escuchamos
+              </nuxt-link>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
@@ -146,7 +161,7 @@ export default {
     }
   },
   watch: {
-    '$route' () {
+    '$route'() {
       this.closeMenu()
     }
   },
@@ -196,7 +211,8 @@ export default {
   background-color: white !important
 }
 
-.menu-enter-active, .menu-leave-active {
+.menu-enter-active,
+.menu-leave-active {
   transition: transform 0.5s ease
 }
 
@@ -204,12 +220,14 @@ export default {
   transition-delay: 0.5s
 } */
 
-.menu-enter, .menu-leave-to {
+.menu-enter,
+.menu-leave-to {
 
   transform: translateY(-500px)
 }
 
-.menu-enter-to, .menu-leave {
+.menu-enter-to,
+.menu-leave {
 
   transform: translateY(0px)
 }
