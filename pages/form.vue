@@ -236,7 +236,18 @@ export default {
                 'link': this.links
               }
             }
-          )
+          ).then((response) => {
+            this.email = ''
+            this.name = ''
+            this.description = ''
+            this.links = ''
+
+            this.$buefy.dialog.alert({
+              type: 'is-success',
+              title: '¡Genial!',
+              message: 'Tu propuesta ha sido enviada correctamente.'
+            })
+          })
         } catch (error) {
           console.log(error)
         }
