@@ -136,6 +136,7 @@
 
 <script>
 import axios from 'axios'
+
 import shortPost from '../components/shortPost.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -403,7 +404,7 @@ export default {
       const updatedDateTimeFormated = new Date(updatedDateTime)
       let serverDateTimeFormated = new Date(serverDateTime)
 
-      if (((updatedDateTimeFormated - serverDateTimeFormated) / 3600000) >= 24) {
+      if (((updatedDateTimeFormated - serverDateTimeFormated) / 3600000) > 24) {
         let random = Math.floor(Math.random() * this.keyWordsES.length)
         let promiseArray = []
 
@@ -459,7 +460,7 @@ export default {
       return new Promise((resolve, reject) => {
         try {
           let params = {
-            api_key: "C36593633B1748C4AF273539FC8F562A",
+            api_key: process.env.API_KEY,
             q: keywords,
             location: location
           }
