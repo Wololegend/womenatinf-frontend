@@ -115,7 +115,7 @@ export default {
       let keyWordsPosts = []
 
       arrayPromises.push(new Promise((resolve, reject) => {
-        axios.get('http://localhost:1337/api/publicaciones?populate=media')
+        axios.get('https://pristine-biscayne-20430-612b2c9251a8.herokuapp.com/api/publicaciones?populate=media')
           .then(response => {
             this.allPosts = response.data.data
 
@@ -141,7 +141,7 @@ export default {
       }))
 
       arrayPromises.push(new Promise((resolve, reject) => {
-        axios.get('http://localhost:1337/api/publicaciones?populate=media&filters[titulo][$contains]=' + this.$route.params.searchTerms)
+        axios.get('https://pristine-biscayne-20430-612b2c9251a8.herokuapp.com/api/publicaciones?populate=media&filters[titulo][$contains]=' + this.$route.params.searchTerms)
           .then(responseTitle => {
             titlePosts = responseTitle.data.data
 
@@ -150,7 +150,7 @@ export default {
       }))
 
       arrayPromises.push(new Promise((resolve, reject) => {
-        axios.get('http://localhost:1337/api/publicaciones?populate=media&filters[cuerpo][$contains]=' + this.$route.params.searchTerms)
+        axios.get('https://pristine-biscayne-20430-612b2c9251a8.herokuapp.com/api/publicaciones?populate=media&filters[cuerpo][$contains]=' + this.$route.params.searchTerms)
           .then(responseBody => {
             bodyPosts = responseBody.data.data
 

@@ -1,7 +1,7 @@
 <template >
   <div class="block columns is-vcentered is-centered ml-1">
     <div :class="imgClass">
-      <img v-if="img !== null" :src="'http://localhost:1337' + this.img[0].attributes.url" :alt="altImg">
+      <img v-if="img !== null" :src="'https://pristine-biscayne-20430-612b2c9251a8.herokuapp.com' + this.img[0].attributes.url" :alt="altImg">
 
       <img v-else src="../assets/women@infLogoPequeño.png" :alt="altImg">
     </div>

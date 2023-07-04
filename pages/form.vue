@@ -226,7 +226,7 @@ export default {
 
       if (!this.correctEmailFormat && !this.correctDescriptionFormat && !this.correctLinksFormat) {
         try {
-          await axios.post('http://localhost:1337/api/propuestas',
+          await axios.post('https://pristine-biscayne-20430-612b2c9251a8.herokuapp.com/api/propuestas',
             {
               'data': {
                 'fecha': new Date(),

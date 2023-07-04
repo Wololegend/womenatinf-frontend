@@ -330,14 +330,17 @@ export default {
       googleSearchResults: []
     }
   },
-  async created() {
+  async mounted() {
+    window.addEventListener("resize", this.resizeListener)
+    this.resizeListener()
+
     this.searchAlgorithm()
 
     try {
       const loadingComponent = this.$buefy.loading.open({
         container: null
       })
-      await axios.get('http://localhost:1337/api/publicaciones?populate=media')
+      await axios.get('https://pristine-biscayne-20430-612b2c9251a8.herokuapp.com/api/publicaciones?populate=media')
         .then(response => {
           new Promise((resolve, reject) => {
             this.posts = response.data.data
@@ -372,10 +375,6 @@ export default {
       console.log(error)
     }
   },
-  mounted() {
-    window.addEventListener("resize", this.resizeListener)
-    this.resizeListener()
-  },
   methods: {
     async searchAlgorithm() {
       let updatedDateTime = new Date()
@@ -392,7 +391,7 @@ export default {
       }
 
       try {
-        await axios.get('http://localhost:1337/api/fecha-hora-algoritmo',
+        await axios.get('https://pristine-biscayne-20430-612b2c9251a8.herokuapp.com/api/fecha-hora-algoritmo',
         ).then((response) => {
           serverDateTime = response.data.data.attributes.fechaHora
         })
@@ -421,7 +420,7 @@ export default {
           this.googleSearchResults.forEach((search) => {
             try {
               if ('snippet' in search) {
-                axios.post('http://localhost:1337/api/algoritmo-busquedas',
+                axios.post('https://pristine-biscayne-20430-612b2c9251a8.herokuapp.com/api/algoritmo-busquedas',
                   {
                     'data': {
                       'Titulo': search.title,
@@ -442,7 +441,7 @@ export default {
         })
 
         try {
-          await axios.put('http://localhost:1337/api/fecha-hora-algoritmo',
+          await axios.put('https://pristine-biscayne-20430-612b2c9251a8.herokuapp.com/api/fecha-hora-algoritmo',
             {
               'data': {
                 'fechaHora': updatedDateTime

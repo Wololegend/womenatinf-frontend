@@ -89,7 +89,7 @@ export default {
         container: null
       })
 
-      await axios.get('http://localhost:1337/api/publicaciones?populate=media&filters[Tipos][$eq]=Destacados')
+      await axios.get('https://pristine-biscayne-20430-612b2c9251a8.herokuapp.com/api/publicaciones?populate=media&filters[Tipos][$eq]=Destacados')
         .then(response => {
           new Promise((resolve, reject) => {
             this.posts = response.data.data
