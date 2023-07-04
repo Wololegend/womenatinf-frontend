@@ -154,13 +154,12 @@ export default {
           .then(responseBody => {
             bodyPosts = responseBody.data.data
 
-            this.scorePosts(titlePosts, bodyPosts, keyWordsPosts)
-
             resolve()
           })
       }))
 
       Promise.all(arrayPromises).then(() => {
+        this.scorePosts(titlePosts, bodyPosts, keyWordsPosts)
 
         this.boolean = true
 
@@ -196,6 +195,7 @@ export default {
     },
 
     scorePosts(titlePosts, bodyPosts, keyWordsPosts) {
+      console.log(this.allPosts)
       let titlePromises = []
       let termsPromises = []
       let bodyPromises = []
@@ -251,6 +251,7 @@ export default {
             Promise.all(bodyPromises).then(() => {
               Promise.all(deleteZerosPromises).then(() => {
                 this.allPosts = tmpArrayPosts
+
                 this.paginatedPosts = []
 
                 this.allPosts.sort(function (a, b) {
