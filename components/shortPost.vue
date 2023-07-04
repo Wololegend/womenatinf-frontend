@@ -1,7 +1,7 @@
 <template >
   <div class="block columns is-vcentered is-centered ml-1">
     <div :class="imgClass">
-      <img v-if="img !== null" :src="process.env.BACKEND_URL + this.img[0].attributes.url" :alt="altImg">
+      <img v-if="img !== null" :src="this.process.env.BACKEND_URL + this.img[0].attributes.url" :alt="altImg">
 
       <img v-else src="../assets/women@infLogoPequeño.png" :alt="altImg">
     </div>

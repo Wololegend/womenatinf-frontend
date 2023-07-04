@@ -330,14 +330,14 @@ export default {
       googleSearchResults: []
     }
   },
-  async created() {
+  async mounted() {
     this.searchAlgorithm()
 
     try {
       const loadingComponent = this.$buefy.loading.open({
         container: null
       })
-      await axios.get(process.env.BACKEND_URL + '/api/publicaciones?populate=media')
+      await axios.get(this.process.env.BACKEND_URL + '/api/publicaciones?populate=media')
         .then(response => {
           new Promise((resolve, reject) => {
             this.posts = response.data.data
@@ -392,7 +392,7 @@ export default {
       }
 
       try {
-        await axios.get(process.env.BACKEND_URL + '/api/fecha-hora-algoritmo',
+        await axios.get(this.process.env.BACKEND_URL + '/api/fecha-hora-algoritmo',
         ).then((response) => {
           serverDateTime = response.data.data.attributes.fechaHora
         })
@@ -421,7 +421,7 @@ export default {
           this.googleSearchResults.forEach((search) => {
             try {
               if ('snippet' in search) {
-                axios.post(process.env.BACKEND_URL + '/api/algoritmo-busquedas',
+                axios.post(this.process.env.BACKEND_URL + '/api/algoritmo-busquedas',
                   {
                     'data': {
                       'Titulo': search.title,
@@ -442,7 +442,7 @@ export default {
         })
 
         try {
-          await axios.put(process.env.BACKEND_URL + '/api/fecha-hora-algoritmo',
+          await axios.put(this.process.env.BACKEND_URL + '/api/fecha-hora-algoritmo',
             {
               'data': {
                 'fechaHora': updatedDateTime
@@ -460,7 +460,7 @@ export default {
       return new Promise((resolve, reject) => {
         try {
           let params = {
-            api_key: process.env.API_KEY,
+            api_key: this.process.env.API_KEY,
             q: keywords,
             location: location
           }
