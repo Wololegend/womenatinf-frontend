@@ -459,7 +459,7 @@ export default {
       return new Promise((resolve, reject) => {
         try {
           let params = {
-            api_key: process.env.API_KEY,
+            api_key: this.process.env.API_KEY,
             q: keywords,
             location: location
           }
