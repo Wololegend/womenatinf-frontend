@@ -5,7 +5,7 @@
         v-if="post.attributes.media.data !== null"
         :src="'https://pristine-biscayne-20430-612b2c9251a8.herokuapp.com' + post.attributes.media.data[0].attributes.url" />
 
-      <h1 class="title overText"  :style="windowWidth >= 770 ? 'top: 60%; left: 9%;' : 'top: 40%; left: 10%; right: 10%;'"> {{ title }} </h1>
+      <h1 class="title overText"  :style="windowWidth >= 770 ? 'top: 60%; left: 9%;' : 'top: 30%; left: 10%; right: 10%;'"> {{ title }} </h1>
     </div>
 
     <div class="body tile is-parent mb-5">

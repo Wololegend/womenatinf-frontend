@@ -51,10 +51,6 @@
             </div>
           </div>
 
-          <!-- <nuxt-link class="navbar-item navbarLink" to="/form">
-            Te escuchamos
-          </nuxt-link> -->
-
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link navbarLink">
               Artículos e iniciativas
@@ -134,9 +130,21 @@
             </div>
           </div>
 
-          <nuxt-link class="navbar-item navbarLink" to="/form">
-            Te escuchamos
-          </nuxt-link>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link navbarLink">
+              Artículos e iniciativas
+            </a>
+
+            <div class="navbar-dropdown">
+              <nuxt-link class="navbar-item navbarLink" to="/">
+                Artículos
+              </nuxt-link>
+              <nuxt-link class="navbar-item navbarLink" to="/form">
+                Te escuchamos
+              </nuxt-link>
+            </div>
+          </div>
+
         </div>
       </transition>
     </nav>
@@ -223,7 +231,7 @@ export default {
 .menu-enter,
 .menu-leave-to {
 
-  transform: translateY(-500px)
+  transform: translateY(-600px)
 }
 
 .menu-enter-to,
