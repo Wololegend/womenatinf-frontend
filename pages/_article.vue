@@ -3,7 +3,7 @@
     <div class="header tile is-parent is-12 mt-5 has-text-centered" :style="styleHeader">
       <img class="bgImage tile is-child is-inline-block" :style="styleHeaderImg"
         v-if="post.attributes.media.data !== null"
-        :src="'https://pristine-biscayne-20430-612b2c9251a8.herokuapp.com' + post.attributes.media.data[0].attributes.url" />
+        :src="post.attributes.media.data[0].attributes.url" />
 
       <h1 class="title overText"  :style="windowWidth >= 770 ? 'top: 60%; left: 9%;' : 'top: 25%; left: 10%; right: 10%; font-size: 30px'"> {{ title }} </h1>
     </div>
@@ -131,14 +131,14 @@ export default {
           for (let i = 0; i < this.body.length; i++) {
             if (i > 1 && i % num == 0 && i < this.body.length - 2) {
               if (this.body[i].title) {
-                this.body[i + 1].imgUrl = 'https://pristine-biscayne-20430-612b2c9251a8.herokuapp.com' + this.post.attributes.media.data[imgIndex % this.post.attributes.media.data.length].attributes.url
+                this.body[i + 1].imgUrl = this.post.attributes.media.data[imgIndex % this.post.attributes.media.data.length].attributes.url
                 this.body[i + 1].imgPos = pos
                 
                 if (i < this.body.length - 3)
                   this.body[i + 2].render = false
               }
               else {
-                this.body[i].imgUrl = 'https://pristine-biscayne-20430-612b2c9251a8.herokuapp.com' + this.post.attributes.media.data[imgIndex % this.post.attributes.media.data.length].attributes.url
+                this.body[i].imgUrl = this.post.attributes.media.data[imgIndex % this.post.attributes.media.data.length].attributes.url
                 this.body[i].imgPos = pos
                 this.body[i + 1].render = false
               }

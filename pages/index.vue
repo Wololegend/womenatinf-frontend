@@ -343,6 +343,7 @@ export default {
       await axios.get('https://pristine-biscayne-20430-612b2c9251a8.herokuapp.com/api/publicaciones?populate=media')
         .then(response => {
           new Promise((resolve, reject) => {
+            console.log(response.data.data)
             this.posts = response.data.data
 
             this.posts.forEach(post => {
